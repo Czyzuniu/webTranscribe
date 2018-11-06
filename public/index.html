@@ -10,8 +10,11 @@
         <h1>Welcome to Transcriber app</h1>
     </header>
     <div id="content">
-        <textarea id="transcribed" readonly rows="4">
-        </textarea>
+<!--         <textarea id="transcribed" readonly rows="4">
+        </textarea> -->
+    </div>
+    <div id="currentSpeech">
+    	
     </div>
 </main>
 </body>
@@ -26,19 +29,77 @@
 
 
     var recognition = new webkitSpeechRecognition();
+
     recognition.continuous = true;
     recognition.interimResults = true;
-// recognition.maxAlternatives = 10;
+
+	recognition.onsoundend = function() {
+	  console.log('sound has stopped being detected');
+	}
+
+	recognition.onspeechstart = function() {
+  	  console.log('Speech has been detected');
+	}
+
+	
+	let currentElement = window.currentSpeech
     recognition.onresult = function(event) { 
-        var d = new Date()
-        console.log(event.results[0][0].transcript)
-        
+    	let id = 0
+    	var final_transcript = ''
+    	var interim_transcript = ''
+    	for (var i = event.resultIndex; i < event.results.length; ++i) {
+    	  console.log(event.results[i][0])	
+	      if (event.results[i].isFinal) {
+	        final_transcript += event.results[i][0].transcript;
+	      } else {
+	        interim_transcript += event.results[i][0].transcript + ' ';
+	      }
+	    }
 
-    //console.log(event.results[0][0].transcript, d.toLocaleTimeString(),event.results[0][0].transcript)
+	    let d = new Date()
 
+	    if (interim_transcript) {
+	    	console.log(interim_transcript, 'ww')
+	    	currentElement.textContent = `${interim_transcript}`
+
+	    }
+
+	    if (final_transcript) {
+	    	console.log('final', final_transcript)
+	    	let finalElem = document.createElement('span')
+	    	finalElem.textContent = `${d.toLocaleTimeString()} ${final_transcript}`
+	    	content.appendChild(finalElem)
+	    	currentElement.textContent = ''
+	    }
+
+	    // if (interim_transcript) {
+	    // }
+
+	    // if (final_transcript) {
+	    // 	let initial = document.getElementById(id)
+	    // 	initial.textContent = final_transcript
+	    // 	id++
+	    // }
+
+
+    	
     }
+
+    recognition.onend = function(event) {
+    	console.log('finished')
+    	recognition.start()
+    }
+
     recognition.start()
 
 
+
+    // window.addEventListener('gotFinal', (e) => {
+    // 	console.log(e.detail,'final')
+    // })
+
+    // window.addEventListener('gotPossible', (e) => {
+    // 	console.log(e.detail, 'possible')
+    // })
 
 </script>

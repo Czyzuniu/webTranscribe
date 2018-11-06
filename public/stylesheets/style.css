@@ -17,6 +17,8 @@ body #wrapper {
 body > #wrapper > #content {
     width:95vw;
     height: 65vh;
+    	display: flex;
+    flex-direction: column;
 }
 
 
@@ -31,4 +33,9 @@ body > #wrapper > #content {
 .hpvid {
     width: 95%;
     height: 95%;
+}
+
+
+#currentSpeech {
+	font-size: 25px;
 }
