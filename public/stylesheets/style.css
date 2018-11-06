@@ -7,20 +7,26 @@ a {
 }
 
 
-body #wrapper {
+body {
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-body > #wrapper > #content {
-    width:95vw;
+#content {
+	width:95vw;
     height: 65vh;
-    	display: flex;
+    display: flex;
     flex-direction: column;
 }
 
+#intro {
+	width: 95vw;
+	height: 95vh;
+	display: flex;
+	flex-direction: column;
+}
 
 #content > #transcribed {
     height:99%;
@@ -30,12 +36,28 @@ body > #wrapper > #content {
 }
 
 
-.hpvid {
-    width: 95%;
-    height: 95%;
+#currentSpeech {
+	font-size: 25px;
+}
+
+#intro input {
+  height:8%;
+  width:40%;
+  margin:20px;
+  text-align: center;
+  font-size: large;
+    font-family: serif;
+}
+
+#intro {
+  display:flex;
+  justify-content:center;
+  align-items:center
 }
 
 
-#currentSpeech {
-	font-size: 25px;
+#intro button {
+	height: 10%;
+    width: 25%;
+    font-size: large;
 }

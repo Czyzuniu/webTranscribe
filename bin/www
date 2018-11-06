@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('webtranscribe:server');
 var http = require('http');
+var https = require('https');
+var fs = require('fs')
 
 /**
  * Get port from environment and store in Express.
@@ -19,7 +21,15 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+let options = {
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}
+
+var server = https.createServer(options,app);
+var io     = app.io
+io.attach( server );
+
 
 /**
  * Listen on provided port, on all network interfaces.

@@ -10,26 +10,20 @@
         <h1>Welcome to Transcriber app</h1>
     </header>
     <div id="content">
-<!--         <textarea id="transcribed" readonly rows="4">
-        </textarea> -->
     </div>
     <div id="currentSpeech">
-    	
     </div>
 </main>
 </body>
 </html>
 
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-
+<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 <script>
+	let currentElement = window.currentSpeech
 
-
-
-    var recognition = new webkitSpeechRecognition();
-
+    const recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
 
@@ -40,11 +34,8 @@
 	recognition.onspeechstart = function() {
   	  console.log('Speech has been detected');
 	}
-
 	
-	let currentElement = window.currentSpeech
     recognition.onresult = function(event) { 
-    	let id = 0
     	var final_transcript = ''
     	var interim_transcript = ''
     	for (var i = event.resultIndex; i < event.results.length; ++i) {
@@ -70,36 +61,23 @@
 	    	finalElem.textContent = `${d.toLocaleTimeString()} ${final_transcript}`
 	    	content.appendChild(finalElem)
 	    	currentElement.textContent = ''
+	    	//responsiveVoice.speak(`${final_transcript}`)
 	    }
-
-	    // if (interim_transcript) {
-	    // }
-
-	    // if (final_transcript) {
-	    // 	let initial = document.getElementById(id)
-	    // 	initial.textContent = final_transcript
-	    // 	id++
-	    // }
-
-
     	
     }
 
     recognition.onend = function(event) {
     	console.log('finished')
-    	recognition.start()
+    	//recognition.start()
     }
 
-    recognition.start()
+    recognition.onerror = function(event) {
+    	console.log(event.error);
+	};
 
-
-
-    // window.addEventListener('gotFinal', (e) => {
-    // 	console.log(e.detail,'final')
-    // })
-
-    // window.addEventListener('gotPossible', (e) => {
-    // 	console.log(e.detail, 'possible')
-    // })
+    
+    window.addEventListener('load', () => {
+    	recognition.start()
+    })
 
 </script>
