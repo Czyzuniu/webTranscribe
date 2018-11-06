@@ -1,13 +1,44 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-  <title>Express</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 </head>
-
 <body>
-  <h1>Express</h1>
-  <p>Welcome to Express</p>
+<main id="wrapper">
+    <header>
+        <h1>Welcome to Transcriber app</h1>
+    </header>
+    <div id="content">
+        <textarea id="transcribed" readonly rows="4">
+        </textarea>
+    </div>
+</main>
 </body>
-
 </html>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+
+<script>
+
+
+
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+// recognition.maxAlternatives = 10;
+    recognition.onresult = function(event) { 
+        var d = new Date()
+        console.log(event.results[0][0].transcript)
+        
+
+    //console.log(event.results[0][0].transcript, d.toLocaleTimeString(),event.results[0][0].transcript)
+
+    }
+    recognition.start()
+
+
+
+</script>
