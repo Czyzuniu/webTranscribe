@@ -10,18 +10,53 @@
         <h1>Welcome to Transcriber app</h1>
         <input type="text" placeholder="Search transcript" id="searchScript">
     </header>
-    <div id="content">
-    </div>
-    <div id="currentSpeech">
-    </div>
+		<div id="intro">
+			<input type="text" name="deviceName" id="userName" placeholder="please enter desired username..">
+			<input type="text" name="roomName" id="roomName" placeholder="please enter room name..">
+			<button id="join">Join Room</button>
+		</div>
+		<div id="transcriber" class="hidden">
+	    <div id="content">
+	    </div>
+	    <div id="currentSpeech">
+	    </div>
+		</div>
 </main>
 </body>
 </html>
 
 
-
+<script src="/socket.io/socket.io.js"></script>
 <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 <script>
+
+	let timeOutInterval = 0;
+	let counter = 0;
+	let socket = io()
+
+	window.join.addEventListener('click', () => {
+		socket.emit('join', {
+			userName:window.userName.value,
+			roomName:window.roomName.value
+		})
+	})
+
+	socket.on('joined', () => {
+		recognition.start()
+		window.transcriber.classList.toggle('hidden')
+		window.intro.classList.toggle('hidden')
+	})
+
+	// var test_counter = 0;
+	socket.on('speech', (data) => {
+		// test_counter++;
+		// console.log(test_counter,data.user , data.msg);
+		// console.log(data);
+		createMsgElement(data.name,data.timestamp,data.message);
+
+
+	})
+
 	let currentElement = window.currentSpeech
 
     const recognition = new webkitSpeechRecognition();
@@ -30,25 +65,24 @@
 		// recognition.lang = 'pl';
 
 	recognition.onsoundend = function() {
-	  console.log('sound has stopped being detected');
+	  // console.log('sound has stopped being detected');
 	}
 
 	recognition.onspeechstart = function() {
-  	  console.log('Speech has been detected');
+  	  // console.log('Speech has been detected');
 			counter = 0;
 			startCounting();
 
 	}
 
-var timeOutInterval = 0;
-var counter = 0;
+
 	function startCounting() {
 		clearTimeout(timeOutInterval);
-		console.log("timer Reset " + counter);
+		// console.log("timer Reset " + counter);
 
 		counter++;
 		if(counter == 3){
-			console.log("*** time UP");
+			// console.log("*** time UP");
 			clearTimeout(timeOutInterval);
 			counter = 0;
 			recognition.stop();
@@ -82,26 +116,53 @@ var counter = 0;
 	    let d = new Date()
 
 	    if (interim_transcript) {
-	    	console.log(interim_transcript, 'ww', confidence)
+	    	// console.log(interim_transcript, 'ww', confidence)
 	    	currentElement.textContent = `${interim_transcript}`
             colorfyConfidence(currentElement, confidence)
 	    }
 
 	    if (final_transcript) {
-	    	console.log('final', final_transcript, confidence)
-	    	let finalElem = document.createElement('span')
-	    	finalElem.textContent = `${d.toLocaleTimeString()} ${newline} ${final_transcript}`
-            // finalElem.style.whiteSpace = 'pre-line'
-	    	content.appendChild(finalElem)
-            finalElem.dataset.time = d.toLocaleDateString()
-            finalElem.dataset.speech = final_transcript
-            finalElem.dataset.confidence = confidence
-            colorfyConfidence(finalElem, confidence)
+				createMsgElement(window.userName.value,d.getTime(),final_transcript);
+	    	// console.log('final', final_transcript, confidence)
+	    	// let finalElem = document.createElement('span')
+	    	// finalElem.textContent = `${d.toLocaleTimeString()} ${newline} ${final_transcript}`
+        //     // finalElem.style.whiteSpace = 'pre-line'
+	    	// content.appendChild(finalElem)
+            // finalElem.dataset.time = d.toLocaleDateString()
+            // finalElem.dataset.speech = final_transcript
+            // finalElem.dataset.confidence = confidence
+            // colorfyConfidence(finalElem, confidence)
 	    	currentElement.textContent = ''
 	    	//responsiveVoice.speak(`${final_transcript}`)
+
+				socket.emit('message', {
+					message:final_transcript,
+					room:window.roomName.value,
+					name: window.userName.value,
+					timestamp: new Date().getTime()
+				})
+
 	    }
 
     }
+
+
+
+function createMsgElement(user,time,msg) {
+	let finalElem = document.createElement('span');
+	finalElem.textContent = `${user} - ${new Date(time).toLocaleTimeString()} ${msg}`
+	finalElem.dataset.time = new Date(time).toLocaleTimeString();
+	finalElem.dataset.speech = msg;
+	// finalElem.dataset.confidence = confidence
+	// colorfyConfidence(finalElem, confidence)
+	window.content.appendChild(finalElem);
+
+	window.content.scrollTop = window.content.scrollHeight;
+
+
+}
+
+
 
     function colorfyConfidence(elem, confidence) {
 	    var perfect = 'rgb(78, 218, 232)'
@@ -123,17 +184,12 @@ var counter = 0;
     }
 
     recognition.onend = function(event) {
-    	console.log('finished')
+    	// console.log('finished')
     	recognition.start()
     }
 
     recognition.onerror = function(event) {
-    	console.log(event.error);
+    	// console.log(event.error);
 	};
-
-
-    window.addEventListener('load', () => {
-    	recognition.start()
-    })
 
 </script>
