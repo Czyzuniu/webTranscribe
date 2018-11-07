@@ -8,6 +8,7 @@
 <main id="wrapper">
     <header>
         <h1>Welcome to Transcriber app</h1>
+        <input type="text" placeholder="Search transcript" id="searchScript">
     </header>
     <div id="content">
     </div>
@@ -38,37 +39,65 @@
     recognition.onresult = function(event) { 
     	var final_transcript = ''
     	var interim_transcript = ''
+        var confidence = 0
+        var newline = '\r\n'
     	for (var i = event.resultIndex; i < event.results.length; ++i) {
     	  console.log(event.results[i][0])	
 	      if (event.results[i].isFinal) {
 	        final_transcript += event.results[i][0].transcript;
+	        confidence = event.results[i][0].confidence;
 	      } else {
 	        interim_transcript += event.results[i][0].transcript + ' ';
+	        confidence = event.results[i][0].confidence;
 	      }
 	    }
 
 	    let d = new Date()
 
 	    if (interim_transcript) {
-	    	console.log(interim_transcript, 'ww')
+	    	console.log(interim_transcript, 'ww', confidence)
 	    	currentElement.textContent = `${interim_transcript}`
-
+            colorfyConfidence(currentElement, confidence)
 	    }
 
 	    if (final_transcript) {
-	    	console.log('final', final_transcript)
+	    	console.log('final', final_transcript, confidence)
 	    	let finalElem = document.createElement('span')
-	    	finalElem.textContent = `${d.toLocaleTimeString()} ${final_transcript}`
+	    	finalElem.textContent = `${d.toLocaleTimeString()} ${newline} ${final_transcript}`
+            // finalElem.style.whiteSpace = 'pre-line'
 	    	content.appendChild(finalElem)
+            finalElem.dataset.time = d.toLocaleDateString()
+            finalElem.dataset.speech = final_transcript
+            finalElem.dataset.confidence = confidence
+            colorfyConfidence(finalElem, confidence)
 	    	currentElement.textContent = ''
 	    	//responsiveVoice.speak(`${final_transcript}`)
 	    }
-    	
+
+    }
+
+    function colorfyConfidence(elem, confidence) {
+	    var perfect = 'rgb(78, 218, 232)'
+	    var best = '#bfffbf'
+        var avg = '#fbf09e'
+        var rubbish = '#fb9e9e'
+        var finalColor = null
+
+        if (confidence > 0.93) finalColor = perfect
+        else if (confidence < 0.93 && confidence > 0.85) finalColor = best
+        else if (confidence < 0.85 && confidence > 0.70) finalColor = avg
+        else finalColor = rubbish
+
+        elem.style.background = finalColor
+    }
+
+    function searchTranscript() {
+
     }
 
     recognition.onend = function(event) {
     	console.log('finished')
-    	//recognition.start()
+    	recognition.start()
     }
 
     recognition.onerror = function(event) {
