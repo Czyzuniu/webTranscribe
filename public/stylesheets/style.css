@@ -19,6 +19,7 @@ body {
     height: 65vh;
     display: flex;
     flex-direction: column;
+    overflow: scroll;
 }
 
 #intro {
@@ -28,16 +29,11 @@ body {
 	flex-direction: column;
 }
 
-#content > #transcribed {
-    height:99%;
-    width:99%;
-    border:1px solid black;
-    font: 24px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
 
 #currentSpeech {
-	font-size: 25px;
+    font-size: 25px;
+    text-align: center;
+    margin-top: 25px;
 }
 
 #intro input {
