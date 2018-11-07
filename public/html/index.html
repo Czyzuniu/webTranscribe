@@ -27,6 +27,7 @@
     const recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
+		// recognition.lang = 'pl';
 
 	recognition.onsoundend = function() {
 	  console.log('sound has stopped being detected');
@@ -34,20 +35,46 @@
 
 	recognition.onspeechstart = function() {
   	  console.log('Speech has been detected');
+			counter = 0;
+			startCounting();
+
 	}
-	
-    recognition.onresult = function(event) { 
+
+var timeOutInterval = 0;
+var counter = 0;
+	function startCounting() {
+		clearTimeout(timeOutInterval);
+		console.log("timer Reset " + counter);
+
+		counter++;
+		if(counter == 3){
+			console.log("*** time UP");
+			clearTimeout(timeOutInterval);
+			counter = 0;
+			recognition.stop();
+
+		}else{
+			timeOutInterval = setTimeout(startCounting,1000);
+		}
+	}
+
+
+    recognition.onresult = function(event) {
     	var final_transcript = ''
     	var interim_transcript = ''
         var confidence = 0
         var newline = '\r\n'
     	for (var i = event.resultIndex; i < event.results.length; ++i) {
-    	  console.log(event.results[i][0])	
+    	  // console.log(event.results[i][0])
 	      if (event.results[i].isFinal) {
 	        final_transcript += event.results[i][0].transcript;
 	        confidence = event.results[i][0].confidence;
 	      } else {
 	        interim_transcript += event.results[i][0].transcript + ' ';
+
+
+					counter = 0;
+					startCounting();
 	        confidence = event.results[i][0].confidence;
 	      }
 	    }
@@ -104,7 +131,7 @@
     	console.log(event.error);
 	};
 
-    
+
     window.addEventListener('load', () => {
     	recognition.start()
     })
