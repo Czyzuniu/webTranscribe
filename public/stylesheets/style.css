@@ -51,6 +51,10 @@ body {
   align-items:center
 }
 
+.hidden {
+  display: none !important;
+}
+
 
 #intro button {
 	height: 10%;
