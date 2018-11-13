@@ -7,41 +7,39 @@
 <body>
 <main id="wrapper">
     <header>
-        <h1>Welcome to Transcriber app</h1>
-        <input type="text" placeholder="Search transcript" id="searchScript">
+        <div class="pids-wrapper">
+            <div class="pid"></div>
+            <div class="pid"></div>
+            <div class="pid"></div>
+            <div class="pid"></div>
+            <div class="pid"></div>
+            <div class="pid"></div>
+            <div class="pid"></div>
+            <div class="pid"></div>
+            <div class="pid"></div>
+            <div class="pid"></div>
+            <div class="pid"></div>
+            <div class="pid"></div>
+            <div class="pid"></div>
+            <div class="pid"></div>
+            <div class="pid"></div>
+        </div>
     </header>
 
-		<div class="pids-wrapper">
-				<div class="pid"></div>
-				<div class="pid"></div>
-				<div class="pid"></div>
-				<div class="pid"></div>
-				<div class="pid"></div>
-				<div class="pid"></div>
-				<div class="pid"></div>
-				<div class="pid"></div>
-				<div class="pid"></div>
-				<div class="pid"></div>
-				<div class="pid"></div>
-				<div class="pid"></div>
-				<div class="pid"></div>
-				<div class="pid"></div>
-				<div class="pid"></div>
-			</div>
-
-
-		<div id="intro">
-			<input type="text" name="deviceName" id="userName" placeholder="please enter desired username..">
-			<input type="text" name="roomName" id="roomName" placeholder="please enter room name..">
-			<button id="join">Join Room</button>
-		</div>
-		<div id="transcriber" class="hidden">
-
-	    <div id="content">
-	    </div>
-	    <div id="currentSpeech">
-	    </div>
-		</div>
+	<div id="intro" >
+		<input type="text" name="deviceName" id="userName" placeholder="please enter desired username..">
+		<input type="text" name="roomName" id="roomName" placeholder="please enter room name..">
+		<button id="join">Join Room</button>
+	</div>
+	<div id="transcriber" class="hidden">
+    <div id="users">
+        <div id="chatBubbles"></div>
+    </div>
+    <div id="content">
+    </div>
+    <div id="currentSpeech">
+    </div>
+	</div>
 </main>
 </body>
 </html>
@@ -55,6 +53,8 @@
 	let counter = 0;
 	let socket = io()
 
+    let users = []
+
 	window.join.addEventListener('click', () => {
 		socket.emit('join', {
 			userName:window.userName.value,
@@ -62,14 +62,20 @@
 		})
 	})
 
-	socket.on('joined', () => {
+	socket.on('joined', (data) => {
 		recognition.start()
 		window.transcriber.classList.toggle('hidden')
 		window.intro.classList.toggle('hidden')
+
+        users = data.roomUsers
+        reinitAvatars()
 	})
 
     socket.on('newUserJoined', data => {
         createMsgElement('System', new Date().getTime(), `${data.userName}: I have joined the conversation`, 1);
+        users = data.roomUsers
+
+        reinitAvatars()
     })
 
 	// var test_counter = 0;
@@ -156,20 +162,37 @@
 
 
 
-function createMsgElement(user,time,msg, confidence) {
-	let finalElem = document.createElement('span');
-	let nl = '\r\n'
-	finalElem.textContent = `${user} - ${new Date(time).toLocaleTimeString()} `
-    finalElem.textContent += `Confidence: ${Math.floor(confidence * 10000) / 100}%`
-    finalElem.textContent += `${nl} ${msg}`
-    finalElem.style.whiteSpace = 'pre-line'
-	finalElem.dataset.time = new Date(time).toLocaleTimeString();
-	finalElem.dataset.speech = msg;
-	finalElem.dataset.confidence = confidence
-	colorfyConfidence(finalElem, confidence)
-	window.content.appendChild(finalElem);
-	window.content.scrollTop = window.content.scrollHeight;
-}
+    function createMsgElement(user,time,msg, confidence) {
+        let finalElem = document.createElement('span');
+        let nl = '\r\n'
+        finalElem.textContent = `${user} - ${new Date(time).toLocaleTimeString()} `
+        finalElem.textContent += `Confidence: ${Math.floor(confidence * 10000) / 100}%`
+        finalElem.textContent += `${nl} ${msg}`
+        finalElem.style.whiteSpace = 'pre-line'
+        finalElem.dataset.time = new Date(time).toLocaleTimeString();
+        finalElem.dataset.speech = msg;
+        finalElem.dataset.confidence = confidence
+        colorfyConfidence(finalElem, confidence)
+        window.content.appendChild(finalElem);
+        window.content.scrollTop = window.content.scrollHeight;
+
+
+
+        createChatBubble(msg)
+    }
+
+
+    function createChatBubble(msg, color) {
+	    window.chatBubbles.innerHTML = ''
+	    let container = document.createElement('div')
+        let text = document.createElement('p')
+        container.appendChild(text)
+        text.textContent = msg
+        container.classList.add('speech-bubble')
+        window.chatBubbles.appendChild(container)
+
+    }
+
 
     function colorfyConfidence(elem, confidence) {
 	    var perfect = 'rgb(78, 218, 232)'
@@ -202,7 +225,16 @@ function createMsgElement(user,time,msg, confidence) {
 
 
 
+    function reinitAvatars() {
+        let avatars = Array.from(document.querySelectorAll('.avatar'))
 
+        for (let i of avatars) {
+            i.remove()
+        }
+        for (let i = 0; i < users.length ;i++) {
+            createAvatarForUser(users[i].username.substring(0,1).toUpperCase(), i, users[i].avatarColor)
+        }
+    }
 
 
 
@@ -281,20 +313,48 @@ function createMsgElement(user,time,msg, confidence) {
 
 
 	function colorPids(vol) {
-  let all_pids_node = document.querySelectorAll('.pid');
-	let all_pids = Array.from(all_pids_node);
+      let all_pids_node = document.querySelectorAll('.pid');
+        let all_pids = Array.from(all_pids_node);
 
-  let amout_of_pids = Math.round(vol/15);
-  let elem_range = all_pids.slice(0, amout_of_pids)
-  for (var i = 0; i < all_pids.length; i++) {
-    all_pids[i].style.backgroundColor="#e6e7e8";
-  }
-  for (var i = 0; i < elem_range.length; i++) {
+      let amout_of_pids = Math.round(vol/15);
+      let elem_range = all_pids.slice(0, amout_of_pids)
+      for (var i = 0; i < all_pids.length; i++) {
+        all_pids[i].style.backgroundColor="#e6e7e8";
+      }
+      for (var i = 0; i < elem_range.length; i++) {
 
-    // console.log(elem_range[i]);
-    elem_range[i].style.backgroundColor="#69ce2b";
-  }
-}
+        // console.log(elem_range[i]);
+        elem_range[i].style.backgroundColor="#69ce2b";
+      }
+    }
+
+
+    function createAvatarForUser(name, currentNum, colour) {
+
+	    let container = document.createElement('div')
+        container.classList.add('avatar')
+        container.style.background = colour
+
+        let text = document.createElement('span')
+        text.textContent = name
+
+        container.appendChild(text)
+
+        let startingPoint = 360 / users.length
+
+        let angle = startingPoint
+
+        if (currentNum) {
+            for (let i = 0;i < currentNum; i++) {
+                angle += startingPoint
+            }
+        }
+
+	    container.style.transform = `rotate(${angle}deg) translate(14em) rotate(-${angle}deg)`
+
+        window.users.appendChild(container)
+    }
+
 
 
 </script>

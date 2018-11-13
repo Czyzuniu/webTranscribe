@@ -42,11 +42,12 @@ io.on( "connection", function( socket )
       }
         let userObj = {
           username: data.userName,
-          socketid: socket.id
+          socketid: socket.id,
+          avatarColor:generateRandomColour()
         }
         rooms[data.roomName].push(userObj);
-        console.log(rooms);
-        socket.emit('joined')
+        data.roomUsers = rooms[data.roomName]
+        socket.emit('joined', data)
         rooms[data.roomName].map((user) => {
             if (user.socketid != socket.id) {
                 console.log('new user joined')
@@ -85,6 +86,11 @@ io.on( "connection", function( socket )
 
 
 });
+
+
+function generateRandomColour() {
+    return '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+}
 
 
 module.exports = app;
