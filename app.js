@@ -46,12 +46,18 @@ io.on( "connection", function( socket )
         rooms[data.roomName] = [];
       }
         let userObj = {
-          username:data.userName,
+          username: data.userName,
           socketid: socket.id
         }
         rooms[data.roomName].push(userObj);
         console.log(rooms);
         socket.emit('joined')
+        rooms[data.roomName].map((user) => {
+            if (user.socketid != socket.id) {
+                console.log('new user joined')
+                io.sockets.to(user.socketid).emit('newUserJoined', data)
+            }
+        })
     })
 
     socket.on('message', (data) => {
@@ -72,6 +78,7 @@ io.on( "connection", function( socket )
           // console.log("speach emit  ",user.socketid);
           // counter++;
           // io.to(users.socketid).emit('speech', {msg:data.message})
+          console.log(data)
           io.sockets.to(user.socketid).emit('speech', data)
           // socket.broadcast.to(users.socketid).emit('speech', {msg:data.message});
           // console.log("counter: " + counter);

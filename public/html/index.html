@@ -47,14 +47,16 @@
 		window.intro.classList.toggle('hidden')
 	})
 
+    socket.on('newUserJoined', data => {
+        createMsgElement('System', new Date().getTime(), `${data.userName}: I have joined the conversation`, 1);
+    })
+
 	// var test_counter = 0;
 	socket.on('speech', (data) => {
 		// test_counter++;
 		// console.log(test_counter,data.user , data.msg);
 		// console.log(data);
-		createMsgElement(data.name,data.timestamp,data.message);
-
-
+		createMsgElement(data.name,data.timestamp,data.message, data.confidence);
 	})
 
 	let currentElement = window.currentSpeech
@@ -105,8 +107,6 @@
 	        confidence = event.results[i][0].confidence;
 	      } else {
 	        interim_transcript += event.results[i][0].transcript + ' ';
-
-
 					counter = 0;
 					startCounting();
 	        confidence = event.results[i][0].confidence;
@@ -116,53 +116,39 @@
 	    let d = new Date()
 
 	    if (interim_transcript) {
-	    	// console.log(interim_transcript, 'ww', confidence)
 	    	currentElement.textContent = `${interim_transcript}`
             colorfyConfidence(currentElement, confidence)
 	    }
 
 	    if (final_transcript) {
-				createMsgElement(window.userName.value,d.getTime(),final_transcript);
-	    	// console.log('final', final_transcript, confidence)
-	    	// let finalElem = document.createElement('span')
-	    	// finalElem.textContent = `${d.toLocaleTimeString()} ${newline} ${final_transcript}`
-        //     // finalElem.style.whiteSpace = 'pre-line'
-	    	// content.appendChild(finalElem)
-            // finalElem.dataset.time = d.toLocaleDateString()
-            // finalElem.dataset.speech = final_transcript
-            // finalElem.dataset.confidence = confidence
-            // colorfyConfidence(finalElem, confidence)
+            createMsgElement(window.userName.value,d.getTime(),final_transcript, confidence);
 	    	currentElement.textContent = ''
-	    	//responsiveVoice.speak(`${final_transcript}`)
-
 				socket.emit('message', {
 					message:final_transcript,
 					room:window.roomName.value,
 					name: window.userName.value,
+					confidence: confidence,
 					timestamp: new Date().getTime()
 				})
-
 	    }
-
     }
 
 
 
-function createMsgElement(user,time,msg) {
+function createMsgElement(user,time,msg, confidence) {
 	let finalElem = document.createElement('span');
-	finalElem.textContent = `${user} - ${new Date(time).toLocaleTimeString()} ${msg}`
+	let nl = '\r\n'
+	finalElem.textContent = `${user} - ${new Date(time).toLocaleTimeString()} `
+    finalElem.textContent += `Confidence: ${Math.floor(confidence * 10000) / 100}%`
+    finalElem.textContent += `${nl} ${msg}`
+    finalElem.style.whiteSpace = 'pre-line'
 	finalElem.dataset.time = new Date(time).toLocaleTimeString();
 	finalElem.dataset.speech = msg;
-	// finalElem.dataset.confidence = confidence
-	// colorfyConfidence(finalElem, confidence)
+	finalElem.dataset.confidence = confidence
+	colorfyConfidence(finalElem, confidence)
 	window.content.appendChild(finalElem);
-
 	window.content.scrollTop = window.content.scrollHeight;
-
-
 }
-
-
 
     function colorfyConfidence(elem, confidence) {
 	    var perfect = 'rgb(78, 218, 232)'
