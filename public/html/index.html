@@ -10,12 +10,33 @@
         <h1>Welcome to Transcriber app</h1>
         <input type="text" placeholder="Search transcript" id="searchScript">
     </header>
+
+		<div class="pids-wrapper">
+				<div class="pid"></div>
+				<div class="pid"></div>
+				<div class="pid"></div>
+				<div class="pid"></div>
+				<div class="pid"></div>
+				<div class="pid"></div>
+				<div class="pid"></div>
+				<div class="pid"></div>
+				<div class="pid"></div>
+				<div class="pid"></div>
+				<div class="pid"></div>
+				<div class="pid"></div>
+				<div class="pid"></div>
+				<div class="pid"></div>
+				<div class="pid"></div>
+			</div>
+
+
 		<div id="intro">
 			<input type="text" name="deviceName" id="userName" placeholder="please enter desired username..">
 			<input type="text" name="roomName" id="roomName" placeholder="please enter room name..">
 			<button id="join">Join Room</button>
 		</div>
 		<div id="transcriber" class="hidden">
+
 	    <div id="content">
 	    </div>
 	    <div id="currentSpeech">
@@ -42,7 +63,7 @@
 	})
 
 	socket.on('joined', () => {
-		recognition.start()
+		// recognition.start()
 		window.transcriber.classList.toggle('hidden')
 		window.intro.classList.toggle('hidden')
 	})
@@ -177,5 +198,103 @@ function createMsgElement(user,time,msg, confidence) {
     recognition.onerror = function(event) {
     	// console.log(event.error);
 	};
+
+
+
+
+
+
+
+
+
+	// (function(){
+	//     var filter, compressor, mediaStreamSource;
+	//
+	//     // Start off by initializing a new context.
+	//     var context = new (window.AudioContext || window.webkitAudioContext)();
+	//
+	//
+	//     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+	//     navigator.getUserMedia( {audio:true}, initAudio , function(err){
+	//         console.log('usermedia error', err)
+	//     });
+	// 
+	//     function initAudio(stream) {
+	//         compressor = context.createDynamicsCompressor();
+	//         compressor.threshold.value = -50;
+	//         compressor.knee.value = 40;
+	//         compressor.ratio.value = 12;
+	//         compressor.reduction.value = -20;
+	//         compressor.attack.value = 0;
+	//         compressor.release.value = 0.25;
+	//
+	//         filter = context.createBiquadFilter();
+	//         filter.Q.value = 8.30;
+	//         filter.frequency.value = 355;
+	//         filter.gain.value = 3.0;
+	//         filter.type = 'bandpass';
+	//         filter.connect(compressor);
+	//
+	//
+	//         compressor.connect(context.destination)
+	//         filter.connect(context.destination)
+	//
+	//         mediaStreamSource = context.createMediaStreamSource( stream );
+	//         mediaStreamSource.connect( filter );
+	//     }
+	// })();
+
+
+
+	navigator.mediaDevices.getUserMedia({ audio: true})
+	.then(function(stream) {
+	  audioContext = new AudioContext();
+	  analyser = audioContext.createAnalyser();
+	  microphone = audioContext.createMediaStreamSource(stream);
+	  javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+
+	  analyser.smoothingTimeConstant = 0.8;
+	  analyser.fftSize = 1024;
+
+	  microphone.connect(analyser);
+	  analyser.connect(javascriptNode);
+	  javascriptNode.connect(audioContext.destination);
+	  javascriptNode.onaudioprocess = function() {
+	      var array = new Uint8Array(analyser.frequencyBinCount);
+	      analyser.getByteFrequencyData(array);
+	      var values = 0;
+
+	      var length = array.length;
+	      for (var i = 0; i < length; i++) {
+	        values += (array[i]);
+	      }
+
+	      var average = values / length;
+
+	    // console.log(Math.round(average));
+	    colorPids(average);
+	  }
+	  })
+	  .catch(function(err) {
+	    /* handle the error */
+	});
+
+
+	function colorPids(vol) {
+  let all_pids_node = document.querySelectorAll('.pid');
+	let all_pids = Array.from(all_pids_node);
+
+  let amout_of_pids = Math.round(vol/15);
+  let elem_range = all_pids.slice(0, amout_of_pids)
+  for (var i = 0; i < all_pids.length; i++) {
+    all_pids[i].style.backgroundColor="#e6e7e8";
+  }
+  for (var i = 0; i < elem_range.length; i++) {
+
+    // console.log(elem_range[i]);
+    elem_range[i].style.backgroundColor="#69ce2b";
+  }
+}
+
 
 </script>
