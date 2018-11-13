@@ -14,12 +14,28 @@ body {
     align-items: center;
 }
 
+#transcriber {
+      display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 90vh;
+    width: 100vh;
+}
+
 #content {
-	width:95vw;
-    height: 65vh;
     display: flex;
     flex-direction: column;
     overflow: scroll;
+    border: 1px solid black;
+    flex: 0.5;
+}
+
+#users {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    flex: 0.7;
+    /* background-color: red; */
 }
 
 #intro {
@@ -29,11 +45,24 @@ body {
 	flex-direction: column;
 }
 
+header {
+  height: 5vh
+}
+
+.avatar img {
+  height: 100%;
+}
+
+.avatar {
+    height: 55px;
+    width: 55px;
+}
 
 #currentSpeech {
     font-size: 25px;
     text-align: center;
-    margin-top: 25px;
+    margin-top: 20px;
+    height: 5vh;
 }
 
 #intro input {
