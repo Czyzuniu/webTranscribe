@@ -22,17 +22,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 let rooms = {}
 
 app.get('/', function(req, res, next) {
-  res.sendFile(path.join(__dirname + '/public/html/intro.html'));
+  res.sendFile(path.join(__dirname + '/public/html/index.html'));
 });
 
 
 app.post('/join', function(req, res, next) {
   res.sendFile(path.join(__dirname + '/public/html/intro.html'));
-});
-
-
-app.get('/speechTest', function(req, res, next) {
-  res.sendFile(path.join(__dirname + '/public/html/index.html'));
 });
 
 
