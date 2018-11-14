@@ -57,6 +57,7 @@ io.on( "connection", function( socket )
     })
 
     socket.on('message', (data) => {
+        console.log(data, 'here')
       let users = rooms[data.room]
       // data["user"] =
       // let msg = data.message;
@@ -75,6 +76,7 @@ io.on( "connection", function( socket )
           // counter++;
           // io.to(users.socketid).emit('speech', {msg:data.message})
           console.log(data)
+
           io.sockets.to(user.socketid).emit('speech', data)
           // socket.broadcast.to(users.socketid).emit('speech', {msg:data.message});
           // console.log("counter: " + counter);
