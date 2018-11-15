@@ -16,29 +16,31 @@ body {
 
 #transcriber {
       display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    height: 90vh;
-    width: 100vh;
+      flex-direction: row;
+      flex-wrap: wrap;
+      height: 90vh;
+      width: 100vw;
 }
 
 #content {
     display: flex;
     flex-direction: column;
     overflow: scroll;
-    border: 1px solid black;
-    flex: 0.5;
+    /* border: 1px solid black; */
+    flex: 0.4;
 }
 
 #users {
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     position: relative;
-    align-items: center;
-    overflow-x: auto;
-    flex: 0.7;
-    overflow-x: auto;
+    /* align-items: center; */
+    /* overflow-x: auto; */
+    flex: 0.8;
+    /* overflow-x: auto; */
+    flex-wrap: wrap;
+    overflow-y: auto;
 }
 
 #intro {
@@ -85,14 +87,14 @@ header {
     border-radius: 360px;
     position: relative;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
 }
 
 #currentSpeech {
     font-size: 25px;
     text-align: center;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     height: 5vh;
 }
 
@@ -126,50 +128,39 @@ header {
 
 .speech-bubble {
     position: relative;
-    background: #00aabb;
-    border-radius: 1.4em;
     /* height: 15%; */
-    width: 100px;
+    width: 65%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     font-size: small;
     margin: 5px;
     min-height: 100px;
-    margin-top: 15px;
-    word-break: break-all;
+    /* margin-top: 18px; */
+    max-width: 250px;
+    /* right: 0; */
+    border-radius: 10px;
+    /* border-top-left-radius: 0px; */
+    /* word-break: break-all; */
+    /* align-self: flex-end; */
 }
 
-.avtContainer {
+.avtContainer {/* margin: 2%; */display: flex;flex-direction: column;flex-wrap: wrap;/* position: relative; *//* top: 41px; */height: auto;min-height: 250px;width: 300px;/* justify-content: center; */align-items: center;}
 
-margin: 2%;
-
-display: flex;
-
-flex-direction: column;
-
-flex-wrap: wrap;
-
-/* position: relative; */
-
-/* top: 41px; */
-
-height: 200px;
+.speech-bubble:after {
+  content: '';
+  position: absolute;
+  left: -9px;
+  top: 25px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-right-color: inherit;
+  border-left: 0;
+  /* margin-top: -25px; */
+  /* margin-left: -15px; */
 }
-
-/*.speech-bubble:after {*/
-    /*content: '';*/
-    /*position: absolute;*/
-    /*left: 0;*/
-    /*top: 50%;*/
-    /*width: 0;*/
-    /*height: 0;*/
-    /*border: 12px solid transparent;*/
-    /*border-right-color: #00aabb;*/
-    /*border-left: 0;*/
-    /*margin-top: -15px;*/
-    /*margin-left: -13px;*/
-/*}*/
 
 #chatBubbles {
     width: 30%;
@@ -218,4 +209,11 @@ height: 200px;
   box-sizing: border-box;
   background: rgb(230, 231, 232);
   float: left;
+}
+
+
+.innerContainer{
+  color: black;
+  height: 100%;
+  align-self: flex-start;
 }

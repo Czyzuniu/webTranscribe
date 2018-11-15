@@ -36,6 +36,9 @@ io.on( "connection", function( socket )
 {
     console.log( "A user connected", socket.id);
     socket.on('join', (data) => {
+
+      let colour = generateRandomColour()
+      console.log('colour', colour)
       console.log(data)
       if (rooms[data.roomName] == null) {
         rooms[data.roomName] = [];
@@ -43,7 +46,7 @@ io.on( "connection", function( socket )
         let userObj = {
           username: data.userName,
           socketid: socket.id,
-          avatarColor:generateRandomColour()
+          avatarColor:colour
         }
         rooms[data.roomName].push(userObj);
         data.roomUsers = rooms[data.roomName]
