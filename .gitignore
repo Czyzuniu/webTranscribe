@@ -69,3 +69,5 @@ typings/
 \.idea/vcs\.xml
 
 \.idea/webTranscribe\.iml
+
+\.vscode/
