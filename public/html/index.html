@@ -1,43 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 </head>
 <body>
 <main id="wrapper">
     <header>
-        <div class="pids-wrapper">
-            <div class="pid"></div>
-            <div class="pid"></div>
-            <div class="pid"></div>
-            <div class="pid"></div>
-            <div class="pid"></div>
-            <div class="pid"></div>
-            <div class="pid"></div>
-            <div class="pid"></div>
-            <div class="pid"></div>
-            <div class="pid"></div>
-            <div class="pid"></div>
-            <div class="pid"></div>
-            <div class="pid"></div>
-            <div class="pid"></div>
-            <div class="pid"></div>
+        <div style="width: 100%; display: flex; flex-direction: row; justify-content: flex-end; align-items: center">
+            <div class="pids-wrapper">
+                <div class="pid"></div>
+                <div class="pid"></div>
+                <div class="pid"></div>
+                <div class="pid"></div>
+                <div class="pid"></div>
+                <div class="pid"></div>
+                <div class="pid"></div>
+                <div class="pid"></div>
+                <div class="pid"></div>
+                <div class="pid"></div>
+                <div class="pid"></div>
+                <div class="pid"></div>
+                <div class="pid"></div>
+                <div class="pid"></div>
+                <div class="pid"></div>
+            </div>
+            <button id="playbackLogs" style="width: 120px; height: 20px;">
+                PLAYBACK
+            </button>
         </div>
     </header>
 
-	<div id="intro" >
-		<input type="text" name="deviceName" id="userName" placeholder="please enter desired username..">
-		<input type="text" name="roomName" id="roomName" placeholder="please enter room name..">
-		<button id="join">Join Room</button>
-	</div>
-	<div id="transcriber" class="hidden">
+    <div id="intro" >
+        <input type="text" name="deviceName" id="userName" placeholder="please enter desired username..">
+        <input type="text" name="roomName" id="roomName" placeholder="please enter room name..">
+        <button id="join">Join Room</button>
+    </div>
+    <div id="transcriber" class="hidden">
         <div id="users">
             <!--<div id="chatBubbles"></div>-->
         </div>
         <div id="content">
         </div>
-	</div>
+    </div>
     <div id="currentSpeech">
     </div>
 </main>
@@ -49,23 +54,23 @@
 <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 <script>
 
-	let timeOutInterval = 0;
-	let counter = 0;
-	let socket = io()
+    let timeOutInterval = 0;
+    let counter = 0;
+    let socket = io()
 
     let users = []
 
-	window.join.addEventListener('click', () => {
-		socket.emit('join', {
-			userName:window.userName.value,
-			roomName:window.roomName.value
-		})
-	})
+    window.join.addEventListener('click', () => {
+        socket.emit('join', {
+            userName:window.userName.value,
+            roomName:window.roomName.value
+        })
+    })
 
-	socket.on('joined', (data) => {
-		recognition.start()
-		window.transcriber.classList.toggle('hidden')
-		window.intro.classList.toggle('hidden')
+    socket.on('joined', (data) => {
+        recognition.start()
+        window.transcriber.classList.toggle('hidden')
+        window.intro.classList.toggle('hidden')
 
         users = data.roomUsers
 
@@ -74,7 +79,9 @@
         reinitAvatars()
 
         document.getElementById(socket.id).scrollIntoView({ behavior: 'smooth', block: 'center' })
-	})
+    })
+
+    window.playbackLogs.addEventListener('click', async () => { await interactiveMode() })
 
     socket.on('newUserJoined', data => {
         createMsgElement('System', new Date().getTime(), `${data.userName}: I have joined the conversation`, 1);
@@ -83,111 +90,109 @@
         reinitAvatars()
     })
 
-	// var test_counter = 0;
-	socket.on('speech', (data) => {
-		// test_counter++;
-		// console.log(test_counter,data.user , data.msg);
+    // var test_counter = 0;
+    socket.on('speech', (data) => {
+        // test_counter++;
+        // console.log(test_counter,data.user , data.msg);
 
-		createMsgElement(data.name,data.timestamp,data.message, data.confidence);
+        createMsgElement(data.name,data.timestamp,data.message, data.confidence, data.socketid);
         createChatBubble(data.message,data.socketid)
-	})
+    })
 
-	let currentElement = window.currentSpeech
+    let currentElement = window.currentSpeech
 
     const recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
-		//recognition.lang = 'pl';
+    //recognition.lang = 'pl';
 
-	recognition.onsoundend = function() {
-	  // console.log('sound has stopped being detected');
-	}
+    recognition.onsoundend = function() {
+        // console.log('sound has stopped being detected');
+    }
 
-	recognition.onspeechstart = function() {
-  	  // console.log('Speech has been detected');
-			counter = 0;
-			startCounting();
+    recognition.onspeechstart = function() {
+        // console.log('Speech has been detected');
+        counter = 0;
+        startCounting();
 
-	}
-
-
-	function startCounting() {
-		clearTimeout(timeOutInterval);
-		// console.log("timer Reset " + counter);
-
-		counter++;
-		if(counter == 3){
-			// console.log("*** time UP");
-			clearTimeout(timeOutInterval);
-			counter = 0;
-			recognition.stop();
-
-		}else{
-			timeOutInterval = setTimeout(startCounting,1000);
-		}
-	}
-
-
-    recognition.onresult = function(event) {
-    	var final_transcript = ''
-    	var interim_transcript = ''
-        var confidence = 0
-        var newline = '\r\n'
-    	for (var i = event.resultIndex; i < event.results.length; ++i) {
-    	  // console.log(event.results[i][0])
-	      if (event.results[i].isFinal) {
-	        final_transcript += event.results[i][0].transcript;
-	        confidence = event.results[i][0].confidence;
-	      } else {
-	        interim_transcript += event.results[i][0].transcript + ' ';
-					counter = 0;
-					startCounting();
-	        confidence = event.results[i][0].confidence;
-	      }
-	    }
-
-	    let d = new Date()
-
-	    if (interim_transcript) {
-	    	currentElement.textContent = `${interim_transcript}`
-            colorfyConfidence(currentElement, confidence)
-	    }
-
-	    if (final_transcript) {
-            createMsgElement(window.userName.value,d.getTime(),final_transcript, confidence);
-            createChatBubble(final_transcript,socket.id)
-	    	currentElement.textContent = ''
-				socket.emit('message', {
-					message:final_transcript,
-					room:window.roomName.value,
-					name: window.userName.value,
-					confidence: confidence,
-					timestamp: new Date().getTime(),
-                    socketid: socket.id
-				})
-	    }
     }
 
 
+    function startCounting() {
+        clearTimeout(timeOutInterval);
+        // console.log("timer Reset " + counter);
 
-    function createMsgElement(user,time,msg, confidence) {
+        counter++;
+        if(counter == 3){
+            // console.log("*** time UP");
+            clearTimeout(timeOutInterval);
+            counter = 0;
+            recognition.stop();
+
+        }else{
+            timeOutInterval = setTimeout(startCounting,1000);
+        }
+    }
+
+
+    recognition.onresult = function(event) {
+        var final_transcript = ''
+        var interim_transcript = ''
+        var confidence = 0
+        var newline = '\r\n'
+        for (var i = event.resultIndex; i < event.results.length; ++i) {
+            // console.log(event.results[i][0])
+            if (event.results[i].isFinal) {
+                final_transcript += event.results[i][0].transcript;
+                confidence = event.results[i][0].confidence;
+            } else {
+                interim_transcript += event.results[i][0].transcript + ' ';
+                counter = 0;
+                startCounting();
+                confidence = event.results[i][0].confidence;
+            }
+        }
+
+        let d = new Date()
+
+        if (interim_transcript) {
+            currentElement.textContent = `${interim_transcript}`
+            colorfyConfidence(currentElement, confidence)
+        }
+
+        if (final_transcript) {
+            createMsgElement(window.userName.value,d.getTime(),final_transcript, confidence, socket.id);
+            createChatBubble(final_transcript,socket.id)
+            currentElement.textContent = ''
+            socket.emit('message', {
+                message:final_transcript,
+                room:window.roomName.value,
+                name: window.userName.value,
+                confidence: confidence,
+                timestamp: new Date().getTime(),
+                socketid: socket.id
+            })
+        }
+    }
+
+    function createMsgElement(user,time,msg, confidence, socketid) {
         let finalElem = document.createElement('span');
         let nl = '\r\n'
         finalElem.textContent = `${user} - ${new Date(time).toLocaleTimeString()} `
         finalElem.textContent += `Confidence: ${Math.floor(confidence * 10000) / 100}%`
         finalElem.textContent += `${nl} ${msg}`
         finalElem.style.whiteSpace = 'pre-line'
+        finalElem.dataset.user = user
         finalElem.dataset.time = new Date(time).toLocaleTimeString();
         finalElem.dataset.speech = msg;
         finalElem.dataset.confidence = confidence
+        finalElem.dataset.socketid = socketid
         colorfyConfidence(finalElem, confidence)
         window.content.appendChild(finalElem);
         window.content.scrollTop = window.content.scrollHeight;
-
-
-
         //createChatBubble(msg)
     }
+
 
 
     function createChatBubble(msg, id) {
@@ -210,8 +215,8 @@
 
 
     function colorfyConfidence(elem, confidence) {
-	    var perfect = 'rgb(78, 218, 232)'
-	    var best = '#bfffbf'
+        var perfect = 'rgb(78, 218, 232)'
+        var best = '#bfffbf'
         var avg = '#fbf09e'
         var rubbish = '#fb9e9e'
         var finalColor = null
@@ -224,18 +229,43 @@
         elem.style.background = finalColor
     }
 
-    function searchTranscript() {
+    async function textToSpeech(speech) {
+        return new Promise( res => {
+            console.log(speech, 'from this fn')
+            let engine = new SpeechSynthesisUtterance()
+            let voices = window.speechSynthesis.getVoices()
+            engine.text = speech.text
+            engine.voice = speech.voice ? speech.voice : voices[0]
+            engine.rate = speech.rate ? speech.rate : 5
+            engine.pitch = speech.pitch ? speech.pitch : 1
+            engine.onend = e => res({ finished: true, elapsedTime: e.elapsedTime })
+            speechSynthesis.speak(engine)
+        })
+    }
 
+    async function interactiveMode() {
+        recognition.abort()
+        let logs = Array.from(window.content.children)
+        for (let i = 0; i < logs.length; i++) {
+
+            let log = logs[i]
+            console.log(log)
+            let said = await textToSpeech({text: `${log.dataset.user} said: `})
+            console.log(said)
+            createChatBubble(log.dataset.speech, log.dataset.socketid)
+            let said2 = await textToSpeech({text: `${log.dataset.speech}`})
+            console.log(said2)
+        }
     }
 
     recognition.onend = function(event) {
-    	// console.log('finished')
-    	recognition.start()
+        // console.log('finished')
+        recognition.start()
     }
 
     recognition.onerror = function(event) {
-    	// console.log(event.error);
-	};
+        // console.log(event.error);
+    };
 
 
 
@@ -257,106 +287,106 @@
 
 
 
-	// (function(){
-	//     var filter, compressor, mediaStreamSource;
-	//
-	//     // Start off by initializing a new context.
-	//     var context = new (window.AudioContext || window.webkitAudioContext)();
-	//
-	//
-	//     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-	//     navigator.getUserMedia( {audio:true}, initAudio , function(err){
-	//         console.log('usermedia error', err)
-	//     });
-	// 
-	//     function initAudio(stream) {
-	//         compressor = context.createDynamicsCompressor();
-	//         compressor.threshold.value = -50;
-	//         compressor.knee.value = 40;
-	//         compressor.ratio.value = 12;
-	//         compressor.reduction.value = -20;
-	//         compressor.attack.value = 0;
-	//         compressor.release.value = 0.25;
-	//
-	//         filter = context.createBiquadFilter();
-	//         filter.Q.value = 8.30;
-	//         filter.frequency.value = 355;
-	//         filter.gain.value = 3.0;
-	//         filter.type = 'bandpass';
-	//         filter.connect(compressor);
-	//
-	//
-	//         compressor.connect(context.destination)
-	//         filter.connect(context.destination)
-	//
-	//         mediaStreamSource = context.createMediaStreamSource( stream );
-	//         mediaStreamSource.connect( filter );
-	//     }
-	// })();
+    // (function(){
+    //     var filter, compressor, mediaStreamSource;
+    //
+    //     // Start off by initializing a new context.
+    //     var context = new (window.AudioContext || window.webkitAudioContext)();
+    //
+    //
+    //     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+    //     navigator.getUserMedia( {audio:true}, initAudio , function(err){
+    //         console.log('usermedia error', err)
+    //     });
+    //
+    //     function initAudio(stream) {
+    //         compressor = context.createDynamicsCompressor();
+    //         compressor.threshold.value = -50;
+    //         compressor.knee.value = 40;
+    //         compressor.ratio.value = 12;
+    //         compressor.reduction.value = -20;
+    //         compressor.attack.value = 0;
+    //         compressor.release.value = 0.25;
+    //
+    //         filter = context.createBiquadFilter();
+    //         filter.Q.value = 8.30;
+    //         filter.frequency.value = 355;
+    //         filter.gain.value = 3.0;
+    //         filter.type = 'bandpass';
+    //         filter.connect(compressor);
+    //
+    //
+    //         compressor.connect(context.destination)
+    //         filter.connect(context.destination)
+    //
+    //         mediaStreamSource = context.createMediaStreamSource( stream );
+    //         mediaStreamSource.connect( filter );
+    //     }
+    // })();
 
 
 
-	navigator.mediaDevices.getUserMedia({ audio: true})
-	.then(function(stream) {
-	  audioContext = new AudioContext();
-	  analyser = audioContext.createAnalyser();
-	  microphone = audioContext.createMediaStreamSource(stream);
-	  javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+    navigator.mediaDevices.getUserMedia({ audio: true})
+        .then(function(stream) {
+            audioContext = new AudioContext();
+            analyser = audioContext.createAnalyser();
+            microphone = audioContext.createMediaStreamSource(stream);
+            javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
 
-	  analyser.smoothingTimeConstant = 0.8;
-	  analyser.fftSize = 1024;
+            analyser.smoothingTimeConstant = 0.8;
+            analyser.fftSize = 1024;
 
-	  microphone.connect(analyser);
-	  analyser.connect(javascriptNode);
-	  javascriptNode.connect(audioContext.destination);
-	  javascriptNode.onaudioprocess = function() {
-	      var array = new Uint8Array(analyser.frequencyBinCount);
-	      analyser.getByteFrequencyData(array);
-	      var values = 0;
+            microphone.connect(analyser);
+            analyser.connect(javascriptNode);
+            javascriptNode.connect(audioContext.destination);
+            javascriptNode.onaudioprocess = function() {
+                var array = new Uint8Array(analyser.frequencyBinCount);
+                analyser.getByteFrequencyData(array);
+                var values = 0;
 
-	      var length = array.length;
-	      for (var i = 0; i < length; i++) {
-	        values += (array[i]);
-	      }
+                var length = array.length;
+                for (var i = 0; i < length; i++) {
+                    values += (array[i]);
+                }
 
-	      var average = values / length;
+                var average = values / length;
 
-	    // console.log(Math.round(average));
-	    colorPids(average);
-	  }
-	  })
-	  .catch(function(err) {
-	    /* handle the error */
-	});
+                // console.log(Math.round(average));
+                colorPids(average);
+            }
+        })
+        .catch(function(err) {
+            /* handle the error */
+        });
 
 
-	function colorPids(vol) {
-      let all_pids_node = document.querySelectorAll('.pid');
+    function colorPids(vol) {
+        let all_pids_node = document.querySelectorAll('.pid');
         let all_pids = Array.from(all_pids_node);
 
-      let amout_of_pids = Math.round(vol/15);
-      let elem_range = all_pids.slice(0, amout_of_pids)
-      for (var i = 0; i < all_pids.length; i++) {
-        all_pids[i].style.backgroundColor="#e6e7e8";
-      }
-      for (var i = 0; i < elem_range.length; i++) {
+        let amout_of_pids = Math.round(vol/15);
+        let elem_range = all_pids.slice(0, amout_of_pids)
+        for (var i = 0; i < all_pids.length; i++) {
+            all_pids[i].style.backgroundColor="#e6e7e8";
+        }
+        for (var i = 0; i < elem_range.length; i++) {
 
-        // console.log(elem_range[i]);
-        elem_range[i].style.backgroundColor="#69ce2b";
-      }
+            // console.log(elem_range[i]);
+            elem_range[i].style.backgroundColor="#69ce2b";
+        }
     }
 
 
     function createAvatarForUser(name, sId, colour) {
 
 
-	    let container = document.createElement('div')
+        let container = document.createElement('div')
         container.id = sId
 
         let innerContainer = document.createElement('div')
 
         innerContainer.classList.add('innerContainer')
-	    let avatar = document.createElement('div')
+        let avatar = document.createElement('div')
         avatar.classList.add('avatar')
         avatar.style.background = colour
 
@@ -378,7 +408,7 @@
         //     }
         // }
 
-	    //container.style.transform = `rotate(${angle}deg) translate(14em) rotate(-${angle}deg)`
+        //container.style.transform = `rotate(${angle}deg) translate(14em) rotate(-${angle}deg)`
 
         container.classList.add('avtContainer')
         container.appendChild(innerContainer)
