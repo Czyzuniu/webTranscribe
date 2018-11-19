@@ -193,7 +193,7 @@ header {
 
 .pids-wrapper{
   width: 300px;
-  position: absolute;
+  position: relative;
   top: 0;
   right: 0;
   display: inline-block;
