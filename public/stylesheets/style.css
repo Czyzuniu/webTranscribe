@@ -212,6 +212,12 @@ header {
 }
 
 
+.canceledMsg{
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+
 .innerContainer{
   color: black;
   height: 100%;
