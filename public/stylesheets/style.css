@@ -145,7 +145,7 @@ header {
     /* align-self: flex-end; */
 }
 
-.avtContainer {/* margin: 2%; */display: flex;flex-direction: column;flex-wrap: wrap;/* position: relative; *//* top: 41px; */height: auto;min-height: 250px;width: 300px;/* justify-content: center; */align-items: center;}
+.avtContainer {/* margin: 2%; */display: flex;flex-direction: column;flex-wrap: wrap;/* position: relative; *//* top: 41px; */height: auto;min-height: 250px;width: 300px;/* justify-content: center; */align-items: center;margin-left: 10px;}
 
 .speech-bubble:after {
   content: '';

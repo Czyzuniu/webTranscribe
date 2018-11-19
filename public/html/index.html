@@ -170,10 +170,8 @@
             currentElement.textContent = `${interim_transcript}`
             colorfyConfidence(currentElement, confidence)
 	    }
-		if (final_transcript) {
-
+		if (final_transcript && Math.floor(confidence * 10000) / 100 >= 80) {
 		let msg_id = window.userName.value+"_"+guid();
-    // if (final_transcript && Math.floor(confidence * 10000) / 100 >= 80) {
         createMsgElement(window.userName.value,d.getTime(),final_transcript, confidence,socket.id,msg_id);
         createChatBubble(final_transcript, socket.id)
     	currentElement.textContent = ''
@@ -188,7 +186,9 @@
                 socketid: socket.id
 			})
 			average_all = [];
-		}
+		} else if (final_transcript && Math.floor(confidence * 10000) / 100 < 80){
+            currentElement.textContent = ''
+        }
     }
 
 function createMsgElement(user,time,msg, confidence, socketid, msgid) {
