@@ -1,0 +1,336 @@
+
+kon (1:58:51 PM) : 77.76 - [37,8] : text
+greg (1:58:51 PM) : 96.99 - [59,57,61,11] : test
+		 - text @ 0.33
+greg (1:58:59 PM) : 85.20 - [45,51,47,36,49,49,53,53,48,48,36,36,29,29,6] : good for you said text
+		 - text @ 0.38
+kon (1:58:59 PM) : 96.99 - [56,53,48,42,42,42,42,42,34,34,27,27,19,19,4] : so you said text
+		 - test @ 0.17
+		 - good for you said text @ 0.73
+greg (1:59:00 PM) : 75.04 - [61,58] :  for me
+		 - text @ 0.00
+		 - so you said text @ 0.00
+kon (1:59:00 PM) : 75.62 - [53,43] :  for me
+		 - test @ 0.00
+		 - good for you said text @ 0.25
+		 -  for me @ 1.00
+greg (1:59:03 PM) : 77.50 - [42,35,40,34,31,31,31,31,35,35,35,35,29,29,20,20,4] : text for you sit test
+		 - text @ 0.40
+		 - so you said text @ 0.48
+		 -  for me @ 0.27
+kon (1:59:03 PM) : 71.18 - [31,22,25,21,18,18,2] : so you sit test
+		 - test @ 0.55
+		 - good for you said text @ 0.29
+		 -  for me @ 0.00
+		 - text for you sit test @ 0.70
+kon (1:59:43 PM) : 93.09 - [18,48,46,46,25,25,26,32,29,29,21,21,17,17,18,18,56,56,47,47,40,40,24,24,24,24,18,18,18,18,24,48,48,57,57,45,45,32,32,30,30,29,29,29,29,27,27,23,23,20,20,14,22,22,21,21,21,21,43,43,43,43,43,43,36,36,30,30,30,30,36,36,37,37,37,37,32,32,32,32,32,32,32,32,28,28,32,32,32,32,21,21,19,19,22,22,30,30,30,30,30,30,30,30,29,29,29,29,28,28,28,28,26,26,28,28,28,28,37,37,37,37,32,32,35,35,27,27,25,25,25,25,25,25,23,23,23,23,22,22,22,22,21,21,18,18,18,18,18,18,18,18,25,25,25,25,22] : we wondered when they both picked the st111 the thing triggers yeah and it finds free laptop saying the same thing can we just pick the one that has the most confidence
+		 - hello @ 0.02
+greg (1:59:43 PM) : 92.03 - [21,19,19,25,21,16,23,23,25,25,20,20,19,19,19,19,25,25,25,25,16,16,16,16,15,15,16,16,31,31,29,29,24,24,24,24,20,20,15,15,15,15,18,26,26,23,23,31,31,25,25,24,24,23,23,22,22,23,23,21,21,19,19,17,17,13,13,13,13,14,14,11,18,18,21,21,20,20,27,27,27,27,22,22,27,27,28,28,24,24,27,27,27,27,31,31,31,31,30,30,31,31,31,31,27,27,27,27,25,25,25,25,17,17,17,17,20,20,30,30,30,30,30,30,27,27,26,26,26,26,25,25,24,24,24,24,24,24,23,23,25,25,22,22,22,22,22,22,19,19,18,18,18,18,18,18,17,17,17,17,20,20,25,25,25,25,22] : we wondered when they both picked the st111 the thing triggers yeah and it finds free laptop saying the same thing can we just pick the one that has the most confidence
+		 - hello @ 0.02
+		 - we wondered when they both picked the st111 the thing triggers yeah and it finds free laptop saying the same thing can we just pick the one that has the most confidence @ 1.00
+greg (1:59:53 PM) : 84.80 - [30,26,26,37,37,37,32,32,32,32,30,30,67,67,63,63,38,38,30,30,13,28,28,26,26,24,24,24,24,22,22,12,12,12,12,24,25,25,24,24,22,22,22,22,24,24,21,21,20,20,25,25,29,29,29,29,29,29,21,21,20,20,16,16,18,18,19,19,18,18,28,28,32,32,36,36,34,34,28] : we have 3 people saying hello we see the less you know we just pick the one that has come to the senses
+		 - we wondered when they both picked the st111 the thing triggers yeah and it finds free laptop saying the same thing can we just pick the one that has the most confidence @ 0.40
+kon (1:59:53 PM) : 87.82 - [60,46,39,54,52,52,33,33,46,46,50,50,50,50,48,48,16,16,16,16,13,36,36,64,64,64,64,64,64,71,71,40,40,35,35,15,15,15,26,20,20,20,20,20,20,20,20,24,24,24,24,24,24,20,20,18,18,17,17,15,15,19,19,30,30,30,30,30,30,29,29,22,22,16] : we have 3 people saying hello will she don't let me know we just pick the one that has confidence and such
+		 - we wondered when they both picked the st111 the thing triggers yeah and it finds free laptop saying the same thing can we just pick the one that has the most confidence @ 0.45
+		 - we have 3 people saying hello we see the less you know we just pick the one that has come to the senses @ 0.69
+greg (1:59:58 PM) : 68.85 - [20,39,39,33,33,33,16,16,35] : why is it not saving
+		 - we wondered when they both picked the st111 the thing triggers yeah and it finds free laptop saying the same thing can we just pick the one that has the most confidence @ 0.10
+		 - we have 3 people saying hello will she don't let me know we just pick the one that has confidence and such @ 0.14
+kon (2:00:14 PM) : 70.43 - [38,29,28,28,23,17,13,11,11,6,59,59,47] : unlimited local
+		 - we have 3 people saying hello we see the less you know we just pick the one that has come to the senses @ 0.03
+		 - why is it not saving @ 0.09
+greg (2:00:14 PM) : 65.27 - [20,25,19,14,12,12,10,49] : Elaine Martin local
+		 - we have 3 people saying hello will she don't let me know we just pick the one that has confidence and such @ 0.10
+		 - unlimited local @ 0.31
+kon (2:00:19 PM) : 73.90 - [32,29,27,26,26,26,27,27,25,25,21,21,36,36,31,31,29,29,31,31,30,30,30,30,27,27,27,27,24,24,10,10,5,5,5] : no it is local boy he said he pushed it
+		 - we have 3 people saying hello we see the less you know we just pick the one that has come to the senses @ 0.18
+		 - why is it not saving @ 0.26
+		 - Elaine Martin local @ 0.29
+greg (2:00:19 PM) : 82.41 - [32,29,26,26,28,28,28,28,28,28,26,26,29,29,28,28,26,26,25,25,23,23,23,23,21,21,21,21,19,19,6] : no it is locally said he pushed it
+		 - we have 3 people saying hello will she don't let me know we just pick the one that has confidence and such @ 0.22
+		 - unlimited local @ 0.39
+		 - no it is local boy he said he pushed it @ 0.87
+kon (2:00:28 PM) : 86.38 - [41,35,35,26,26,17,17,12,12,8,8,24,9,9,24,38,38,36,36,32,32,26,26,24,24,20,20,20,20,20,20,13,13,12] : trying to find out find the current what's the branch name
+		 - Elaine Martin local @ 0.08
+		 - no it is locally said he pushed it @ 0.07
+kon (2:00:33 PM) : 79.81 - [61,40,35,28,27,27,30,30,29,29,32,32,38,38,35,35,35,35,30,30,41,41,41,41,41,41,41,41,37,37,61,61,61,61,50,50,39,39,29,29,5] : near to make a pull request so I can see it here
+		 - Elaine Martin local @ 0.21
+		 - no it is locally said he pushed it @ 0.23
+greg (2:00:33 PM) : 93.05 - [23,22,22,21,16,14,11,11,8,8,5,16,16,16,16,11,11,8,8,8,8,18,18,18,18,23,23,21,21,21,21,20,20,21,21,19,19,17,17,16,16,16,16,13,13,10,10,6,6,20,27,27,32,32,34,34,29,29,19,19,19,19,16,16,16,16,10,10,10,28,28,13,19,19,20,20,17,17,16,16,14,14,12,12,12,12,21,23,23,27,27,26,26,24,24,22,22,26,26,26,26,26,26,24,24,47,47,46,46,38,38,34,34,34,34,28,28,18,18,6] : trying to find out find the current by think that one is on what's the branch name is called interactive here to make a pull request I can see it here
+		 - unlimited local @ 0.10
+		 - no it is local boy he said he pushed it @ 0.17
+		 - trying to find out find the current what's the branch name @ 0.59
+		 - near to make a pull request so I can see it here @ 0.39
+kon (2:00:40 PM) : 96.99 - [61,61,54,16,31,31,27,27,28,28,22,22,19,19,16,16,18,32,32,26,26,14] :  branches go to github branches
+		 - Elaine Martin local @ 0.00
+		 - no it is locally said he pushed it @ 0.15
+		 - trying to find out find the current by think that one is on what's the branch name is called interactive here to make a pull request I can see it here @ 0.24
+greg (2:00:40 PM) : 96.99 - [20,23,23,22,16,14,14,14,6,29,29,21,21,14] : go to github branches
+		 - unlimited local @ 0.08
+		 - no it is local boy he said he pushed it @ 0.12
+		 - trying to find out find the current what's the branch name @ 0.31
+		 - near to make a pull request so I can see it here @ 0.26
+		 -  branches go to github branches @ 0.80
+greg (2:00:52 PM) : 84.66 - [30,32,31,34,31,25,19,19,19,19,19,22,22,22,22,17,17,13,13,11,11,9,9,4] : two kind of starting to work
+		 - trying to find out find the current what's the branch name @ 0.19
+		 - near to make a pull request so I can see it here @ 0.14
+		 -  branches go to github branches @ 0.05
+kon (2:00:53 PM) : 84.39 - [25,24,24,23,17,13,13,11,14,14,14,14,9,9,9,9,7,7,4,4,2] : kind of starting to work
+		 - trying to find out find the current by think that one is on what's the branch name is called interactive here to make a pull request I can see it here @ 0.13
+		 - go to github branches @ 0.07
+		 - two kind of starting to work @ 0.94
+kon (2:01:18 PM) : 96.99 - [23,9] : hello
+		 - two kind of starting to work @ 0.00
+greg (2:01:18 PM) : 96.99 - [12,7,13,7] : hello
+		 - kind of starting to work @ 0.00
+		 - hello @ 1.00
+greg (2:01:26 PM) : 87.36 - [39,40,48,35,35,35,47,47,34,34,34,32,23,23,23,23,23,22,22,18,42,42,55,55,53,53,48,48,38,38,38,38,38,38,33,33,33,33,20,20,16,16,11] : sensitivity one but not mine it's still in test face
+		 - hello @ 0.05
+kon (2:01:27 PM) : 46.07 - [25,16,13,14,8,8,7] : Stuart test base
+		 - hello @ 0.00
+		 - sensitivity one but not mine it's still in test face @ 0.23
+greg (2:01:32 PM) : 66.03 - [20,16,15,14,13,13,13,12,15,12,11,9,9,8,8,7,7,6,6,9] : that's a comfortable shih tzu
+		 - hello @ 0.00
+		 - Stuart test base @ 0.06
+kon (2:01:32 PM) : 66.85 - [18,43,23,23,21,21,17,17,15,15,18,18,15,15,12,12,12,12,9,9,4] : Smyths Leicester companies washers
+		 - hello @ 0.06
+		 - sensitivity one but not mine it's still in test face @ 0.13
+		 - that's a comfortable shih tzu @ 0.21
+kon (2:01:33 PM) : 96.99 - [39] :  hello
+		 - hello @ 1.00
+		 - sensitivity one but not mine it's still in test face @ 0.05
+		 - that's a comfortable shih tzu @ 0.00
+greg (2:01:33 PM) : 78.62 - [37,35] :  hello haha
+		 - hello @ 0.73
+		 - Stuart test base @ 0.00
+		 - Smyths Leicester companies washers @ 0.06
+		 -  hello @ 0.73
+greg (2:01:38 PM) : 96.99 - [20,16,14,8,8,7] : hello hello
+		 - hello @ 0.67
+		 - Stuart test base @ 0.00
+		 - Smyths Leicester companies washers @ 0.06
+		 -  hello @ 0.67
+kon (2:01:39 PM) : 96.99 - [32,26,23,16,16,9] : hello hello
+		 - hello @ 0.67
+		 - sensitivity one but not mine it's still in test face @ 0.05
+		 - that's a comfortable shih tzu @ 0.00
+		 -  hello haha @ 0.53
+		 - hello hello @ 1.00
+kon (2:01:54 PM) : 90.14 - [44,41,33,25,25,23,23,23,16,20,20,20,20,18,18,18,60,60,45,45,45,45,35,35,33,33,22,22,22,69,69,69,69,69,69,46,46,46,46,35,35,37,37,33,33,25,25,25,25,23,23,21,21,19,19,19,19,19,19,23,23,27,27,28,28,24,24,21,21,20,20,20,20,21,21,21,21,24,24,24,24,24,24,26,26,24,24,27,27,27,27,26,26,29,29,26,26,24,24,24,24,21,21,71,71,71,71,62,62,62,62,37,37,32,32,28] : baby girls first race 2 singers like the if the message is just different by like one word than that so broken is it because I'm working on
+		 - sensitivity one but not mine it's still in test face @ 0.22
+		 - that's a comfortable shih tzu @ 0.10
+		 -  hello haha @ 0.07
+		 - hello hello @ 0.04
+greg (2:02:00 PM) : 89.84 - [33,33,44,44,29,29,29,26,26,20,20,20,20,20,20,19,19,19,19,20,25,25,25,25,27,27,30,30,24,57,57,59,59,40,40,39,39,39,39,29,29,31,31,28,28,22,22,22,22,22,22,22,22,21,21,20,20,20,20,18,18,18,18,21,21,23,23,20,20,18,18,20,20,17,17,17,17,18,18,18,18,20,20,27,27,27,27,37,37,50,50,43,43,43,30,30,26,26,27,27,24,24,24,24,51,51,52,52,52,52,33,33,33,33,27,27,29,29,27,27,25,25,19,19,13,9,9,12,23,23,27,27,27,27,25,25,34,34,28,28,24,24,24,24,20,20,19,19,19,19,17,17,22,22,20,20,20,20,20,20,19,19,18,18,18,18,18,18,16,16,15,15,13,13,12,12,12,12,13,13,13,15,15,15,15,31,24,24,24,24,21,21] : baby clothes first writing is like if the message is just different by like one word than it's so broken is it because I'm working on our collecting data sorry I'm collecting data which I need to then analyse and improve the stop
+		 - Smyths Leicester companies washers @ 0.14
+		 -  hello @ 0.04
+		 - hello hello @ 0.07
+		 - baby girls first race 2 singers like the if the message is just different by like one word than that so broken is it because I'm working on @ 0.63
+kon (2:02:01 PM) : 73.19 - [11,22] : and improve
+		 - that's a comfortable shih tzu @ 0.00
+		 -  hello haha @ 0.00
+		 - hello hello @ 0.00
+		 - baby clothes first writing is like if the message is just different by like one word than it's so broken is it because I'm working on our collecting data sorry I'm collecting data which I need to then analyse and improve the stop @ 0.11
+kon (2:02:04 PM) : 73.17 - [64,46,42,38,46,46,28,24,24,20,20,13,13,13] : you can merge that into d
+		 - hello hello @ 0.00
+		 - baby clothes first writing is like if the message is just different by like one word than it's so broken is it because I'm working on our collecting data sorry I'm collecting data which I need to then analyse and improve the stop @ 0.15
+greg (2:02:04 PM) : 72.55 - [25,23,23,20,18,17,10] : where is that in 2D
+		 - hello hello @ 0.11
+		 - baby girls first race 2 singers like the if the message is just different by like one word than that so broken is it because I'm working on @ 0.17
+		 - and improve @ 0.00
+		 - you can merge that into d @ 0.42
+kon (2:02:05 PM) : 96.82 - [72] :  at least
+		 - hello hello @ 0.00
+		 - baby clothes first writing is like if the message is just different by like one word than it's so broken is it because I'm working on our collecting data sorry I'm collecting data which I need to then analyse and improve the stop @ 0.04
+		 - where is that in 2D @ 0.13
+greg (2:02:06 PM) : 57.62 - [24] :  delete this
+		 - hello hello @ 0.13
+		 - baby girls first race 2 singers like the if the message is just different by like one word than that so broken is it because I'm working on @ 0.04
+		 - and improve @ 0.00
+		 - you can merge that into d @ 0.09
+		 -  at least @ 0.15
+kon (2:02:11 PM) : 82.15 - [25,25,25,25,22,21,21,24,24,28,28,52,52,49,49,49,49,47,47,44,44,41,41,41,41,47,47,33,33,41,41,37,37,35,35,35,35,35,35,28,28,25,25,16,16,26] : then he can work on the latest you are in everything because
+		 - baby clothes first writing is like if the message is just different by like one word than it's so broken is it because I'm working on our collecting data sorry I'm collecting data which I need to then analyse and improve the stop @ 0.33
+		 - where is that in 2D @ 0.26
+		 -  delete this @ 0.13
+greg (2:02:11 PM) : 83.54 - [19,19,25,27,34,34,34,33,33,31,31,31,31,30,30,29,29,28,28,24,24,22,22,22,22,22,22,20,20,20,20,17,17,22,22,18,18,17,17,22] : can work on the latest you are in everything because
+		 - baby girls first race 2 singers like the if the message is just different by like one word than that so broken is it because I'm working on @ 0.38
+		 - and improve @ 0.10
+		 - you can merge that into d @ 0.34
+		 -  at least @ 0.11
+		 - then he can work on the latest you are in everything because @ 0.94
+kon (2:02:20 PM) : 79.30 - [35,32,32,30,30,30,30,27,27,28,28,26,26,27,27,41,89,89,89,89,53,53,44,44,44,44,28] : we can merge why I've already tried not
+		 - baby clothes first writing is like if the message is just different by like one word than it's so broken is it because I'm working on our collecting data sorry I'm collecting data which I need to then analyse and improve the stop @ 0.15
+		 - where is that in 2D @ 0.18
+		 -  delete this @ 0.00
+		 - can work on the latest you are in everything because @ 0.18
+greg (2:02:22 PM) : 84.74 - [22,22,22,18,18,19,19,29,42,42,41,41,39,39,40,40,40,40,34,34,34,34,32,32,29,29,29,29,30,30,27,27,26,26,26,26,27,27,29,29,32,79,79,65,65,55,55,46,46,37,37,32,32,25,25,22,22,22,27,27,32,32,28,34,34,34,34,32,32,29,29,14,14,13,13,11,11,9,9,12,12,14,14,17] : desktop local now we can merge what I've already will try it's not perfect but then I can work on it
+		 - baby girls first race 2 singers like the if the message is just different by like one word than that so broken is it because I'm working on @ 0.29
+		 - and improve @ 0.06
+		 - you can merge that into d @ 0.27
+		 -  at least @ 0.06
+		 - then he can work on the latest you are in everything because @ 0.35
+		 - we can merge why I've already tried not @ 0.48
+kon (2:02:27 PM) : 83.67 - [52,52,43,33,41,41,55,55,54,54,52,52,50,50,51,51,41,41,41,41,37,37,37,37,39,39,29,29,14,39,39,39,39,32,32,28,28,28,28,48,48,45,45,33,33,20,20,28] : you said you push for you push 4 days ago I can see that here
+		 - baby clothes first writing is like if the message is just different by like one word than it's so broken is it because I'm working on our collecting data sorry I'm collecting data which I need to then analyse and improve the stop @ 0.20
+		 - where is that in 2D @ 0.29
+		 -  delete this @ 0.05
+		 - can work on the latest you are in everything because @ 0.37
+		 - desktop local now we can merge what I've already will try it's not perfect but then I can work on it @ 0.20
+greg (2:02:27 PM) : 90.38 - [24,22,22,24,26,25,25,29,24,24,26,23,23,23,20,20,12,23,23,19,19,17,17,17,17,15,15,25,25,23,23,23,23,15,15,11,11,14] : you push for you push 4 days ago I can see that here
+		 - and improve @ 0.06
+		 - you can merge that into d @ 0.39
+		 -  at least @ 0.06
+		 - then he can work on the latest you are in everything because @ 0.38
+		 - we can merge why I've already tried not @ 0.16
+		 - you said you push for you push 4 days ago I can see that here @ 0.92
+greg (2:02:32 PM) : 88.06 - [21,24,20,20,27,26,27,27,28,30,27,27,28,28,18,18,18,18,13,13,12] : change it which I made on Friday
+		 - you can merge that into d @ 0.18
+		 -  at least @ 0.00
+		 - then he can work on the latest you are in everything because @ 0.14
+		 - we can merge why I've already tried not @ 0.23
+		 - you said you push for you push 4 days ago I can see that here @ 0.20
+kon (2:02:36 PM) : 85.33 - [27,24,30,31,30,30,30,29,29,29,32,32,36,36,33,33,33,33,24,24,19,19,19,19,13,13,20,58,58,56,56,43,43,51,51,58,58,47,47,20] : change it which I made on Friday I can see that
+		 - can work on the latest you are in everything because @ 0.27
+		 - desktop local now we can merge what I've already will try it's not perfect but then I can work on it @ 0.28
+		 - you push for you push 4 days ago I can see that here @ 0.34
+		 - change it which I made on Friday @ 0.84
+greg (2:02:37 PM) : 79.86 - [25,25,30,29,26,28,28,28,28,26,26,26,26,18,18,12,12,12,12,4,4] : Friday or 16 based
+		 - then he can work on the latest you are in everything because @ 0.08
+		 - we can merge why I've already tried not @ 0.11
+		 - you said you push for you push 4 days ago I can see that here @ 0.23
+		 - change it which I made on Friday I can see that @ 0.32
+kon (2:02:42 PM) : 78.62 - [38,38,38,37,34,34,26,26,24,24,24,40,40,32,32,32,32,22,22,22,22,18,18,20] : I thought you ready had them first
+		 - desktop local now we can merge what I've already will try it's not perfect but then I can work on it @ 0.17
+		 - you push for you push 4 days ago I can see that here @ 0.29
+		 - change it which I made on Friday @ 0.10
+		 - Friday or 16 based @ 0.00
+greg (2:02:42 PM) : 85.88 - [30,29,29,26,26,25,21,24,24,24,27,21,18,18,10,10,29] : I've already had them pushed
+		 - we can merge why I've already tried not @ 0.47
+		 - you said you push for you push 4 days ago I can see that here @ 0.27
+		 - change it which I made on Friday I can see that @ 0.13
+		 - I thought you ready had them first @ 0.45
+greg (2:02:43 PM) : 47.60 - [25,24,22] :  The Empress tarot
+		 - we can merge why I've already tried not @ 0.11
+		 - you said you push for you push 4 days ago I can see that here @ 0.14
+		 - change it which I made on Friday I can see that @ 0.05
+		 - I thought you ready had them first @ 0.24
+kon (2:02:45 PM) : 96.99 - [27,27,57,29,29,23,23,7,7,7] : anything to that branch
+		 - desktop local now we can merge what I've already will try it's not perfect but then I can work on it @ 0.16
+		 - you push for you push 4 days ago I can see that here @ 0.19
+		 - change it which I made on Friday @ 0.29
+		 - Friday or 16 based @ 0.00
+		 - I've already had them pushed @ 0.11
+		 -  The Empress tarot @ 0.07
+greg (2:02:51 PM) : 85.37 - [28,27,26,23,22,20,19,19,13,36,36,33,33,30,30,28,28,25,25,21,21,21,21,18,18,13,13,13,13,10,10] : you posted on 4 days ago that's it
+		 - you said you push for you push 4 days ago I can see that here @ 0.39
+		 - change it which I made on Friday I can see that @ 0.31
+		 - I thought you ready had them first @ 0.25
+		 - anything to that branch @ 0.17
+kon (2:02:51 PM) : 85.20 - [43,35,32,29,26,23,23,22,22,19,19,19,43,43,35,35,35,35,27,27,27,27,32,32,27,27,27,27,20,20,18,18,16,16,4] : if posted on 4 days ago that's it
+		 - desktop local now we can merge what I've already will try it's not perfect but then I can work on it @ 0.18
+		 - you push for you push 4 days ago I can see that here @ 0.36
+		 - change it which I made on Friday @ 0.27
+		 - Friday or 16 based @ 0.21
+		 - I've already had them pushed @ 0.16
+		 -  The Empress tarot @ 0.07
+		 - you posted on 4 days ago that's it @ 0.92
+greg (2:02:54 PM) : 71.70 - [33,33,23,10] : oh yeah
+		 - you said you push for you push 4 days ago I can see that here @ 0.00
+		 - change it which I made on Friday I can see that @ 0.00
+		 - I thought you ready had them first @ 0.08
+		 - anything to that branch @ 0.00
+		 - if posted on 4 days ago that's it @ 0.00
+greg (2:02:59 PM) : 81.23 - [37,41,85,77,68,68,57,57,20] : this is a staff
+		 - change it which I made on Friday I can see that @ 0.12
+		 - I thought you ready had them first @ 0.14
+		 - anything to that branch @ 0.17
+		 - if posted on 4 days ago that's it @ 0.15
+kon (2:03:07 PM) : 86.91 - [66,77,80,70,65,59,57,53,36,36,28,28,22,22,20,20,20,20,17,17,16,16,11,67,67,67,67,62,62,49,49,56,56,56,56,55,55,42,42,34,34,17] : you have posted 4 days ago right so that's fine yeah
+		 - I've already had them pushed @ 0.20
+		 -  The Empress tarot @ 0.05
+		 - you posted on 4 days ago that's it @ 0.68
+		 - oh yeah @ 0.17
+		 - this is a staff @ 0.10
+greg (2:03:08 PM) : 93.65 - [39,35,16,53,53,56,56,65,65,68,68,60,60,60,60,56,56,48,48,37,37,33,33,31,31,31,31,31,31,22,22,20,20,18,18,15,15,9,20,20,35,44,44,38,38,38,38,35,35,28,28,21,21,21,21,25,25,25,25,20] :  that you have posted 4 days ago right yeah so that's fine yeah
+		 - I thought you ready had them first @ 0.34
+		 - anything to that branch @ 0.19
+		 - if posted on 4 days ago that's it @ 0.55
+		 - you have posted 4 days ago right so that's fine yeah @ 0.91
+kon (2:03:13 PM) : 93.56 - [81,70,59,49,43,35,33,33,33,33,33,33,39,39,35,35,31,31,10] : I just said github branches
+		 -  The Empress tarot @ 0.20
+		 - you posted on 4 days ago that's it @ 0.16
+		 - oh yeah @ 0.00
+		 - this is a staff @ 0.15
+		 -  that you have posted 4 days ago right yeah so that's fine yeah @ 0.07
+greg (2:03:13 PM) : 93.36 - [26,25,25,24,22,21,21,15,15,15,15,11,11,7,7,6,42,42,31,31,34,34,31,31,31,31,30,30,30,30,30,30,29,29,13,13,10] :  but I don't know where do I go on I just said github branches
+		 - anything to that branch @ 0.24
+		 - if posted on 4 days ago that's it @ 0.19
+		 - you have posted 4 days ago right so that's fine yeah @ 0.09
+		 - I just said github branches @ 0.69
+greg (2:03:24 PM) : 87.13 - [25,25,24,14,14,12,28,28,27,27,41,41,41,41,45,45,45,45,33,33,34,34,32,32,28,28,28,28,23,23,23,23,31,31,23,23,21,21] : then go to your branch and see new pull request
+		 - you have posted 4 days ago right so that's fine yeah @ 0.20
+		 - I just said github branches @ 0.39
+kon (2:03:24 PM) : 86.76 - [36,35,34,31,19,19,15,37,37,48,48,40,40,76,76,69,69,64,64,53,53,51,51,51,51,51,51,30,30,30,30,28,28,28,28,7,7,7] : then go to your branch and see new pull request
+		 - this is a staff @ 0.11
+		 -  that you have posted 4 days ago right yeah so that's fine yeah @ 0.18
+		 -  but I don't know where do I go on I just said github branches @ 0.35
+		 - then go to your branch and see new pull request @ 1.00
+kon (2:03:29 PM) : 86.27 - [19] : ok
+		 - this is a staff @ 0.00
+		 -  that you have posted 4 days ago right yeah so that's fine yeah @ 0.00
+		 -  but I don't know where do I go on I just said github branches @ 0.00
+		 - then go to your branch and see new pull request @ 0.00
+kon (2:03:33 PM) : 88.70 - [44,45,46,34,31,12] : branches
+		 -  that you have posted 4 days ago right yeah so that's fine yeah @ 0.00
+		 -  but I don't know where do I go on I just said github branches @ 0.34
+		 - then go to your branch and see new pull request @ 0.40
+greg (2:03:34 PM) : 91.25 - [21,21,22,20,20,21,21,19,19,18,18,17,17,15,15,18,18,19,19,17,17,13,13,13,13,9,9,9,28,28,23,23,10] : ok so I go web transcript branches
+		 - you have posted 4 days ago right so that's fine yeah @ 0.12
+		 - I just said github branches @ 0.36
+		 - then go to your branch and see new pull request @ 0.37
+		 - ok @ 0.09
+		 - branches @ 0.50
+greg (2:03:40 PM) : 96.99 - [14,16,15,15,15,15,12,12,16,16,14] : ok and then
+		 - I just said github branches @ 0.25
+		 - then go to your branch and see new pull request @ 0.29
+		 - ok @ 0.29
+		 - branches @ 0.31
+greg (2:03:45 PM) : 79.46 - [23,36,32,32,36,36,36,27,27,23,23,13,13,15,23,23,28,28,28,28,20,20,18,18,16,16,7,7,7] :  pull request under on your branch
+		 - then go to your branch and see new pull request @ 0.72
+		 - ok @ 0.00
+		 - branches @ 0.41
+kon (2:03:48 PM) : 92.66 - [12,12,27,44,33,24,13,13,7,51,51,40,40,47,47,41,41,31,31,31,31,25,25,25,25,25,25,18,18,15,15,17] : on your branch then you can see all the changes
+		 - then go to your branch and see new pull request @ 0.57
+		 - ok so I go web transcript branches @ 0.33
+		 - ok and then @ 0.24
+		 -  pull request under on your branch @ 0.44
+greg (2:03:49 PM) : 95.59 - [25,38,38,37,37,32,34,30,26,26,22,22,22,22,22,22,15,15,15,15,13] :  then you can see all the changes
+		 - then go to your branch and see new pull request @ 0.51
+		 - ok @ 0.00
+		 - branches @ 0.31
+		 - on your branch then you can see all the changes @ 0.81
+kon (2:04:05 PM) : 76.13 - [69,61,57,52,50,32,30,21,21,19] : I need to change it
+		 - ok and then @ 0.13
+		 -  pull request under on your branch @ 0.13
+		 -  then you can see all the changes @ 0.41
+greg (2:04:05 PM) : 85.67 - [42,42,39,33,24,19,19,18] : Adidas changes
+		 - on your branch then you can see all the changes @ 0.31
+		 - I need to change it @ 0.48
+greg (2:04:10 PM) : 81.84 - [31,25,25,25,25,15,15,15] : 1 minute
+		 - on your branch then you can see all the changes @ 0.00
+		 - I need to change it @ 0.00
+kon (2:04:24 PM) : 86.58 - [21,20,24,22,22,27,24,23,23,22,22,22,20,20,24,24,22,38,37,37,41,29,29,30,30,28,32,32,52,52,82,82,67,67,59,59,56,56,53,53,53,53,78,36,36,36,36,26,26,28] : farmers walk up to late today because my phone ran out of battery when I get in
+		 - Adidas changes @ 0.11
+		 - 1 minute @ 0.12
+greg (2:04:25 PM) : 89.82 - [29,27,28,34,34,31,31,31,31,33,33,30,30,31,31,28,28,27,27,27,27,31,31,30,30,29,29,45,45,45,45,37,37,22,22,25,25,26,26,27,27,30,30,30,30,30,30,27,27,27,27,27,27,27,32,32,28,28,30,30,25,25,24,24,23,23,39] : how much more captain a today because my phone ran out of battery exchange plug it in
+		 - I need to change it @ 0.26
+		 - farmers walk up to late today because my phone ran out of battery when I get in @ 0.57
+greg (2:04:30 PM) : 89.47 - [35,36,30,31,30,27,24,19,19,19,16,16,14,14,13,13,29] : yeah the Weather Channel
+		 - I need to change it @ 0.30
+		 - farmers walk up to late today because my phone ran out of battery when I get in @ 0.16
+kon (2:04:30 PM) : 71.96 - [46,43,13,34,31,37,14] : yeah that are merging
+		 - Adidas changes @ 0.16
+		 - 1 minute @ 0.11
+		 - how much more captain a today because my phone ran out of battery exchange plug it in @ 0.18
+		 - yeah the Weather Channel @ 0.45

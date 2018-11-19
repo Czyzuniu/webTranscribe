@@ -122,12 +122,12 @@
         clearTimeout(timeOutInterval);
         // console.log("timer Reset " + counter);
 
-        counter++;
-        if(counter == 3){
-            // console.log("*** time UP");
-            clearTimeout(timeOutInterval);
-            counter = 0;
-            recognition.stop();
+		counter++;
+		if(counter == 3){
+			 console.log("*** time UP");
+			clearTimeout(timeOutInterval);
+			counter = 0;
+			recognition.stop();
 
         }else{
             timeOutInterval = setTimeout(startCounting,1000);
@@ -136,43 +136,68 @@
 
 
     recognition.onresult = function(event) {
-        var final_transcript = ''
-        var interim_transcript = ''
+
+// if(average > average_high){
+// 	average_high = Math.round(average);
+// }else if(average < average_low){
+// 	average_low = Math.round(average);
+// }
+// console.log(average);
+// console.log(average + " - " +event.results[0][0].transcript + "  ("+Math.floor(event.results[0][0].confidence * 10000) / 100+")");
+
+    	var final_transcript = ''
+    	var interim_transcript = ''
         var confidence = 0
         var newline = '\r\n'
-        for (var i = event.resultIndex; i < event.results.length; ++i) {
-            // console.log(event.results[i][0])
-            if (event.results[i].isFinal) {
-                final_transcript += event.results[i][0].transcript;
-                confidence = event.results[i][0].confidence;
-            } else {
-                interim_transcript += event.results[i][0].transcript + ' ';
-                counter = 0;
-                startCounting();
-                confidence = event.results[i][0].confidence;
-            }
-        }
+    	for (var i = event.resultIndex; i < event.results.length; ++i) {
+    	  // console.log(event.results[i][0])
+	      if (event.results[i].isFinal) {
+	        final_transcript += event.results[i][0].transcript;
+	        confidence = event.results[i][0].confidence;
+					console.log(Math.floor(event.results[i][0].confidence * 10000) / 100+ " - [" +average_all.toString() +"] : " +event.results[i][0].transcript);
+					// average_high = 0;
+					// average_low = 1000;
+					// average_all = [];
+	      } else {
+					console.log( Math.floor(event.results[i][0].confidence * 10000) / 100+ " - " + Math.round(average) + " : " +event.results[i][0].transcript);
+					average_all.push(Math.round(average));
+	        interim_transcript += event.results[i][0].transcript + ' ';
+					counter = 0;
+					startCounting();
+	        confidence = event.results[i][0].confidence;
+	      }
+	    }
 
         let d = new Date()
 
         if (interim_transcript) {
             currentElement.textContent = `${interim_transcript}`
             colorfyConfidence(currentElement, confidence)
-        }
+	    }
+			if (final_transcript) {
 
-        if (final_transcript) {
-            createMsgElement(window.userName.value,d.getTime(),final_transcript, confidence, socket.id);
-            createChatBubble(final_transcript,socket.id)
-            currentElement.textContent = ''
-            socket.emit('message', {
-                message:final_transcript,
-                room:window.roomName.value,
-                name: window.userName.value,
-                confidence: confidence,
-                timestamp: new Date().getTime(),
+			let msg_id = window.userName.value+"_"+guid();
+	    // if (final_transcript && Math.floor(confidence * 10000) / 100 >= 80) {
+        createMsgElement(window.userName.value,d.getTime(),final_transcript, confidence,msg_id);
+
+	    	currentElement.textContent = ''
+				socket.emit('message', {
+					room:window.roomName.value,
+					message:final_transcript,
+					confidence: confidence,
+					name: window.userName.value,
+					timestamp: new Date().getTime(),
+					mic:average_all,
+					msgid: msg_id
                 socketid: socket.id
-            })
-        }
+
+				})
+				average_all = [];
+
+			}
+	    // }else if(Math.floor(confidence * 10000) / 100 >= 80){
+				// currentElement.textContent = '';
+			// }
     }
 
     function createMsgElement(user,time,msg, confidence, socketid) {
@@ -192,8 +217,30 @@
         window.content.scrollTop = window.content.scrollHeight;
         //createChatBubble(msg)
     }
+		function guid() {
+		  return "ss-s-sss".replace(/s/g, s4);
+		}
 
+		function s4() {
+		  return Math.floor((1 + Math.random()) * 0x10000)
+		    .toString(16)
+		    .substring(1);
+		}
 
+function createMsgElement(user,time,msg, confidence) {
+	let finalElem = document.createElement('span');
+	let nl = '\r\n'
+	finalElem.textContent = `${user} - ${new Date(time).toLocaleTimeString()} `
+    finalElem.textContent += `Confidence: ${Math.floor(confidence * 10000) / 100}%`
+    finalElem.textContent += `${nl} ${msg}`
+    finalElem.style.whiteSpace = 'pre-line'
+	finalElem.dataset.time = new Date(time).toLocaleTimeString();
+	finalElem.dataset.speech = msg;
+	finalElem.dataset.confidence = confidence
+	colorfyConfidence(finalElem, confidence)
+	window.content.appendChild(finalElem);
+	window.content.scrollTop = window.content.scrollHeight;
+}
 
     function createChatBubble(msg, id) {
         let colour = document.getElementById(id).querySelector('.avatar').style.background
@@ -268,7 +315,9 @@
     };
 
 
+let average = 0
 
+// let average_low = 1000
 
     function reinitAvatars() {
         let avatars = Array.from(document.querySelectorAll('.avtContainer'))
@@ -276,54 +325,19 @@
         for (let i of avatars) {
             i.remove()
         }
+let average_all = [];
 
-
+	navigator.mediaDevices.getUserMedia({ audio: true})
+	.then(function(stream) {
+	  audioContext = new AudioContext();
+	  analyser = audioContext.createAnalyser();
+	  microphone = audioContext.createMediaStreamSource(stream);
+	  javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
         for (let i = 0; i < users.length ;i++) {
             console.log(users[i],'here')
             createAvatarForUser(users[i].username.substring(0,1).toUpperCase(), users[i].socketid, users[i].avatarColor)
         }
     }
-
-
-
-
-    // (function(){
-    //     var filter, compressor, mediaStreamSource;
-    //
-    //     // Start off by initializing a new context.
-    //     var context = new (window.AudioContext || window.webkitAudioContext)();
-    //
-    //
-    //     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-    //     navigator.getUserMedia( {audio:true}, initAudio , function(err){
-    //         console.log('usermedia error', err)
-    //     });
-    //
-    //     function initAudio(stream) {
-    //         compressor = context.createDynamicsCompressor();
-    //         compressor.threshold.value = -50;
-    //         compressor.knee.value = 40;
-    //         compressor.ratio.value = 12;
-    //         compressor.reduction.value = -20;
-    //         compressor.attack.value = 0;
-    //         compressor.release.value = 0.25;
-    //
-    //         filter = context.createBiquadFilter();
-    //         filter.Q.value = 8.30;
-    //         filter.frequency.value = 355;
-    //         filter.gain.value = 3.0;
-    //         filter.type = 'bandpass';
-    //         filter.connect(compressor);
-    //
-    //
-    //         compressor.connect(context.destination)
-    //         filter.connect(context.destination)
-    //
-    //         mediaStreamSource = context.createMediaStreamSource( stream );
-    //         mediaStreamSource.connect( filter );
-    //     }
-    // })();
-
 
 
     navigator.mediaDevices.getUserMedia({ audio: true})
@@ -336,13 +350,7 @@
             analyser.smoothingTimeConstant = 0.8;
             analyser.fftSize = 1024;
 
-            microphone.connect(analyser);
-            analyser.connect(javascriptNode);
-            javascriptNode.connect(audioContext.destination);
-            javascriptNode.onaudioprocess = function() {
-                var array = new Uint8Array(analyser.frequencyBinCount);
-                analyser.getByteFrequencyData(array);
-                var values = 0;
+	      average = values / length;
 
                 var length = array.length;
                 for (var i = 0; i < length; i++) {
@@ -371,10 +379,22 @@
         }
         for (var i = 0; i < elem_range.length; i++) {
 
-            // console.log(elem_range[i]);
-            elem_range[i].style.backgroundColor="#69ce2b";
-        }
-    }
+
+
+
+
+
+
+socket.on('cancelmsg', (data) => {
+	console.log(data);
+
+	var msg = document.getElementById(data);
+	if(msg != null){
+		msg.classList.add("canceledMsg");
+	}
+});
+
+
 
 
     function createAvatarForUser(name, sId, colour) {
