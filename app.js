@@ -63,11 +63,11 @@ io.on( "connection", function( socket )
         rooms[data.roomName]["people"].map((user) => {
           if (user.socketid != socket.id) {
             console.log('new user joined')
-            io.sockets.to(user.socketid).emit('newUserJoined', data)
+            io.sockets.to(user.socketid).emit('newUserJoined', rooms[data.roomName]["people"])
           }
         })
       }
-      socket.emit('joined')
+      socket.emit('joined', rooms[data.roomName]["people"])
 
     })
 
@@ -138,20 +138,15 @@ io.on( "connection", function( socket )
           }
         }
     })
-
-
-
 });
 
-function addToFile(roomData,data) {
-  roomData["msgs"].push(data);
 
 function generateRandomColour() {
     return '#'+(Math.random()*0xFFFFFF<<0).toString(16);
 }
 
-
-
+function addToFile(roomData,data) {
+  roomData["msgs"].push(data);
   var stream = fs.createWriteStream("tempFile.txt", {flags:'a'});
     stream.write(data.name + " (" + new Date(data.timestamp).toLocaleTimeString() + ") : " + ((parseFloat(data.confidence))*100).toFixed(2) + " - ["+data.mic.toString() + "] : "+data.message + "\n");
     data.similarity.forEach(function(msg) {
@@ -162,10 +157,6 @@ function generateRandomColour() {
 
      stream.write("\n");
     });
-
-
-stream.end();
-
-
+  stream.end();
 }
 module.exports = app;
