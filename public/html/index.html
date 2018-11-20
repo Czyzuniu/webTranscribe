@@ -196,11 +196,12 @@
 			})
 			average_all = [];
 		} else if (final_transcript && Math.floor(confidence * 10000) / 100 < 80){
+            createMsgElement(window.userName.value,d.getTime(),final_transcript, confidence,socket.id,null,true, true);
             currentElement.textContent = ''
         }
     }
 
-function createMsgElement(user,time,msg, confidence, socketid, msgid,canceled) {
+function createMsgElement(user,time,msg, confidence, socketid, msgid,canceled,discarded) {
     let lastUser = getLastUser()
     let finalElem = document.createElement('div');
     finalElem.classList.add('chatUi')
@@ -219,7 +220,11 @@ function createMsgElement(user,time,msg, confidence, socketid, msgid,canceled) {
     userName.classList.add('chatUiUserName')
     userTime.textContent = `${new Date(time).toLocaleTimeString()}`
     userTime.classList.add('chatUiUserTime')
-    userConfidence.textContent = `Confidence: ${Math.floor(confidence * 10000) / 100}%`
+    if (discarded) {
+        userConfidence.textContent = `Discarded due to low confidence: ${Math.floor(confidence * 10000) / 100}% `
+    } else {
+        userConfidence.textContent = `Confidence: ${Math.floor(confidence * 10000) / 100}%`
+    }
     userConfidence.classList.add('chatUiUserConfidence')
     userInfo.appendChild(userName)
     userInfo.appendChild(userTime)
