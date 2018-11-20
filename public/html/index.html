@@ -106,7 +106,7 @@
 
         // console.log(data,'speech')
 
-        createMsgElement(data.name,data.timestamp,data.message, data.confidence, data.socketid);
+        createMsgElement(data.name,data.timestamp,data.message, data.confidence, data.socketid, data.msgid,data.canceled);
         createChatBubble(data.message,data.socketid)
     })
 
@@ -179,7 +179,7 @@
 	    }
 		if (final_transcript && Math.floor(confidence * 10000) / 100 >= 80) {
 		let msg_id = window.userName.value+"_"+guid();
-        createMsgElement(window.userName.value,d.getTime(),final_transcript, confidence,socket.id,msg_id);
+        createMsgElement(window.userName.value,d.getTime(),final_transcript, confidence,socket.id,msg_id,null);
         createChatBubble(final_transcript, socket.id)
     	currentElement.textContent = ''
 			socket.emit('message', {
@@ -198,7 +198,7 @@
         }
     }
 
-function createMsgElement(user,time,msg, confidence, socketid, msgid) {
+function createMsgElement(user,time,msg, confidence, socketid, msgid,canceled) {
     let lastUser = getLastUser()
     let finalElem = document.createElement('div');
     finalElem.classList.add('chatUi')
@@ -210,28 +210,21 @@ function createMsgElement(user,time,msg, confidence, socketid, msgid) {
     let userTime = document.createElement('span')
     let userConfidence = document.createElement('span')
     let actualMsg = document.createElement('div')
-
     avatar.textContent = user[0].toUpperCase()
     avatar.style.backgroundColor = getUserColor(user)
     avatar.classList.add('chatUiAvatar')
-
     userName.textContent = `${user}`
     userName.classList.add('chatUiUserName')
-
     userTime.textContent = `${new Date(time).toLocaleTimeString()}`
     userTime.classList.add('chatUiUserTime')
-
     userConfidence.textContent = `Confidence: ${Math.floor(confidence * 10000) / 100}%`
     userConfidence.classList.add('chatUiUserConfidence')
-
     userInfo.appendChild(userName)
     userInfo.appendChild(userTime)
     userInfo.appendChild(userConfidence)
     userInfo.classList.add('chatUiUserInfo')
-
     actualMsg.textContent = msg
     actualMsg.classList.add('chatUiMsg')
-
     msgContent.appendChild(userInfo)
     msgContent.appendChild(actualMsg)
     finalElem.appendChild(avatar)
@@ -266,6 +259,10 @@ function createMsgElement(user,time,msg, confidence, socketid, msgid) {
     //     window.content.appendChild(finalElem);
     // } else window.content.appendChild(finalElem);
     window.content.scrollTop = window.content.scrollHeight;
+
+    if(canceled){
+      finalElem.classList.add("canceledMsg");
+    }
 }
 
 function getUserColor(username) {
