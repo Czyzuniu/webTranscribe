@@ -17,6 +17,7 @@ var app = express();
 var io           = socket_io();
 app.io           = io;
 
+let voiceCounter = 3
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -55,7 +56,8 @@ io.on( "connection", function( socket )
         let userObj = {
           username: data.userName,
           socketid: socket.id,
-          avatarColor:colour
+          avatarColor:colour,
+          voiceIndex: ++voiceCounter
         }
         rooms[data.roomName]["people"].push(userObj);
         console.log(rooms);
@@ -67,7 +69,13 @@ io.on( "connection", function( socket )
           }
         })
       }
-      socket.emit('joined', rooms[data.roomName]["people"])
+
+      let res = {
+        users:rooms[data.roomName]["people"],
+        myVoice:voiceCounter
+      }
+
+      socket.emit('joined', res)
 
     })
 

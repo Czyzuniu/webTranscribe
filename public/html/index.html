@@ -8,6 +8,9 @@
 <main id="wrapper">
     <header>
         <div style="width: 100%; display: flex; flex-direction: row; justify-content: flex-end; align-items: center">
+            <h2 id="rmName">
+
+            </h2>
             <div class="pids-wrapper">
                 <div class="pid"></div>
                 <div class="pid"></div>
@@ -60,6 +63,7 @@
     let average_all = [];
 
     let users = []
+    let myVoice
 
     window.join.addEventListener('click', () => {
         socket.emit('join', {
@@ -70,11 +74,14 @@
 
     socket.on('joined', (data) => {
 
-        console.log(data)
+        // console.log(data)
         recognition.start()
         window.transcriber.classList.toggle('hidden')
         window.intro.classList.toggle('hidden')
-        users = data
+        window.rmName.textContent = `Room: ${window.roomName.value}`
+        users = data.users
+        myVoice = data.myVoice
+
 
         reinitAvatars()
 
@@ -84,10 +91,10 @@
     window.playbackLogs.addEventListener('click', async () => { await interactiveMode() })
 
     socket.on('newUserJoined', data => {
-        createMsgElement('System', new Date().getTime(), `${data.userName}: I have joined the conversation`, 1);
+        createMsgElement('System', new Date().getTime(), `${data.username}: I have joined the conversation`, 1);
         users = data
 
-        console.log(data)
+        // console.log(data)
 
         reinitAvatars()
     })
@@ -97,7 +104,7 @@
         // test_counter++;
         // console.log(test_counter,data.user , data.msg);
 
-        console.log(data,'speech')
+        // console.log(data,'speech')
 
         createMsgElement(data.name,data.timestamp,data.message, data.confidence, data.socketid);
         createChatBubble(data.message,data.socketid)
@@ -128,7 +135,7 @@
 
 		counter++;
 		if(counter == 3){
-			 console.log("*** time UP");
+			//  console.log("*** time UP");
 			clearTimeout(timeOutInterval);
 			counter = 0;
 			recognition.stop();
@@ -150,12 +157,12 @@
 	      if (event.results[i].isFinal) {
 	        final_transcript += event.results[i][0].transcript;
 	        confidence = event.results[i][0].confidence;
-					console.log(Math.floor(event.results[i][0].confidence * 10000) / 100+ " - [" +average_all.toString() +"] : " +event.results[i][0].transcript);
+					// console.log(Math.floor(event.results[i][0].confidence * 10000) / 100+ " - [" +average_all.toString() +"] : " +event.results[i][0].transcript);
 					// average_high = 0;
 					// average_low = 1000;
 					// average_all = [];
 	      } else {
-					console.log( Math.floor(event.results[i][0].confidence * 10000) / 100+ " - " + Math.round(average) + " : " +event.results[i][0].transcript);
+					// console.log( Math.floor(event.results[i][0].confidence * 10000) / 100+ " - " + Math.round(average) + " : " +event.results[i][0].transcript);
 					average_all.push(Math.round(average));
 	        interim_transcript += event.results[i][0].transcript + ' ';
 					counter = 0;
@@ -192,22 +199,105 @@
     }
 
 function createMsgElement(user,time,msg, confidence, socketid, msgid) {
-    let finalElem = document.createElement('span');
-    let nl = '\r\n'
-    finalElem.textContent = `${user} - ${new Date(time).toLocaleTimeString()} `
-    finalElem.textContent += `Confidence: ${Math.floor(confidence * 10000) / 100}%`
-    finalElem.textContent += `${nl} ${msg}`
-    finalElem.style.whiteSpace = 'pre-line'
+    let lastUser = getLastUser()
+    let finalElem = document.createElement('div');
+    finalElem.classList.add('chatUi')
+
+    let msgContent = document.createElement('div')
+    let avatar = document.createElement('span')
+    let userInfo = document.createElement('div')
+    let userName = document.createElement('span')
+    let userTime = document.createElement('span')
+    let userConfidence = document.createElement('span')
+    let actualMsg = document.createElement('div')
+
+    avatar.textContent = user[0].toUpperCase()
+    avatar.style.backgroundColor = getUserColor(user)
+    avatar.classList.add('chatUiAvatar')
+
+    userName.textContent = `${user}`
+    userName.classList.add('chatUiUserName')
+
+    userTime.textContent = `${new Date(time).toLocaleTimeString()}`
+    userTime.classList.add('chatUiUserTime')
+
+    userConfidence.textContent = `Confidence: ${Math.floor(confidence * 10000) / 100}%`
+    userConfidence.classList.add('chatUiUserConfidence')
+
+    userInfo.appendChild(userName)
+    userInfo.appendChild(userTime)
+    userInfo.appendChild(userConfidence)
+    userInfo.classList.add('chatUiUserInfo')
+
+    actualMsg.textContent = msg
+    actualMsg.classList.add('chatUiMsg')
+
+    msgContent.appendChild(userInfo)
+    msgContent.appendChild(actualMsg)
+    finalElem.appendChild(avatar)
+    finalElem.appendChild(msgContent)
+
     finalElem.id = msgid
     finalElem.dataset.user = user
     finalElem.dataset.time = new Date(time).toLocaleTimeString();
     finalElem.dataset.speech = msg;
     finalElem.dataset.confidence = confidence
     finalElem.dataset.socketid = socketid
-    colorfyConfidence(finalElem, confidence)
-    window.content.appendChild(finalElem);
+    colorfyConfidence(userConfidence, confidence)
+
+    console.log(lastUser, user, 'passed this: ', (lastUser.last && lastUser.lastUser != user), 'passed second: ', (lastUser.last && lastUser.lastUser != user))
+
+    if (lastUser.last) {
+        if (lastUser.lastUser != user) {
+            if (!lastUser.isRightAligned){
+                finalElem = swapChatAvatar(finalElem)
+            }
+            window.content.appendChild(finalElem);
+        } else {
+            if (lastUser.isRightAligned){
+                finalElem = swapChatAvatar(finalElem)
+            }
+            window.content.appendChild(finalElem);
+        }
+    } else window.content.appendChild(finalElem);
+
+    // if ((lastUser.last == true && lastUser.lastUser != user) || (lastUser.isRightAligned == true && lastUser.lastUser == user)) {
+    //     finalElem = swapChatAvatar(finalElem)
+    //     window.content.appendChild(finalElem);
+    // } else window.content.appendChild(finalElem);
     window.content.scrollTop = window.content.scrollHeight;
 }
+
+function getUserColor(username) {
+    let rgb
+    users.forEach( user => {
+        if (user.username == username) rgb = user.avatarColor
+    })
+    return rgb
+}
+
+function swapChatAvatar(elem) {
+    // childNode[4].parentNode.insertBefore(childNode[4], childNode[3]);
+    elem.dataset.aligned = "RIGHT"
+    elem.lastElementChild.parentNode.insertBefore(elem.lastElementChild, elem.firstElementChild)
+    elem.classList.add('chatUiRight')
+    elem.firstElementChild.firstElementChild.classList.add('chatUiUserInfoRight')
+    elem.firstElementChild.lastElementChild.classList.add('chatUiMsgRight')
+    return elem
+}
+
+function getLastUser() {
+    let user = { first: true, last: false, lastUser: ""}
+    if (!window.content.lastElementChild) return user
+    else {
+        return { first: false, 
+            last: true, 
+            isRightAligned: window.content.lastElementChild.dataset.aligned == "RIGHT",
+            lastUser: window.content.lastElementChild.dataset.user
+        }
+    } 
+}
+
 function guid() {
   return "ss-s-sss".replace(/s/g, s4);
 }
@@ -237,23 +327,21 @@ function createChatBubble(msg, id) {
 
 
 function colorfyConfidence(elem, confidence) {
-    var perfect = 'rgb(78, 218, 232)'
     var best = '#bfffbf'
     var avg = '#fbf09e'
     var rubbish = '#fb9e9e'
     var finalColor = null
 
-    if (confidence > 0.93) finalColor = perfect
-    else if (confidence < 0.93 && confidence > 0.85) finalColor = best
-    else if (confidence < 0.85 && confidence > 0.70) finalColor = avg
-    else finalColor = rubbish
+    if (confidence > 0.93) finalColor = best
+    else if (confidence < 0.93 && confidence > 0.88) finalColor = avg
+    else if (confidence < 0.88 && confidence > 0.80) finalColor = rubbish
 
     elem.style.background = finalColor
 }
 
 async function textToSpeech(speech) {
     return new Promise( res => {
-        console.log(speech, 'from this fn')
+        // console.log(speech, 'from this fn')
         let engine = new SpeechSynthesisUtterance()
         let voices = window.speechSynthesis.getVoices()
         engine.text = speech.text
@@ -267,18 +355,32 @@ async function textToSpeech(speech) {
 
 async function interactiveMode() {
     recognition.abort()
+    let voices = getEnglishVoices()
     let logs = Array.from(window.content.children)
     for (let i = 0; i < logs.length; i++) {
 
         let log = logs[i]
-        console.log(log)
+        // console.log(log)
         let said = await textToSpeech({text: `${log.dataset.user} said: `})
-        console.log(said)
+        // console.log(said)
         createChatBubble(log.dataset.speech, log.dataset.socketid)
-        let said2 = await textToSpeech({text: `${log.dataset.speech}`})
-        console.log(said2)
+        let said2 = await textToSpeech({text: `${log.dataset.speech}`, voice: voices[myVoice]})
+        // console.log(said2)
     }
 }
+
+function getEnglishVoices() {
+    let enVoice = []
+    let voices = window.speechSynthesis.getVoices()
+    voices.forEach( voice => {
+        if (voice.lang.includes('en-')) {
+            // console.log(voice.lang)
+            enVoice.push(voice)
+        }
+    })
+    return enVoice
+}
+
 
 recognition.onend = function(event) {
     // console.log('finished')
@@ -356,7 +458,7 @@ function colorPids(vol) {
 
 
 socket.on('cancelmsg', (data) => {
-	console.log(data);
+	// console.log(data);
 
 	var msg = document.getElementById(data);
 	if(msg != null){
