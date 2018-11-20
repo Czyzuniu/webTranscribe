@@ -22,12 +22,59 @@ body {
       width: 100vw;
 }
 
+.chatUiAvatar {
+    font-size: 33px;
+    text-align: center;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 43%;
+    position: relative;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.chatUiUserName {
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+.chatUiUserTime, .chatUiUserConfidence {
+    padding-right: 10px;
+    color: #ababab;
+    font-size: 12px;
+}
+
+.chatUi {
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    min-height: 55px;
+    padding-bottom: 16px;
+}
+
+.chatUiUserInfoRight {
+    float: right;
+}
+
+.chatUiMsgRight {
+    text-align: -webkit-right;
+    padding-top: 25px;
+    padding-bottom: 10px;
+}
+
+.chatUiRight {
+    margin-top: 25px;
+    align-self: flex-end;
+}
+
 #content {
     display: flex;
     flex-direction: column;
     overflow: scroll;
     /* border: 1px solid black; */
     flex: 0.4;
+    margin-top: 20px;
 }
 
 #users {
