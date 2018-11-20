@@ -66,10 +66,11 @@ body {
 .chatUiRight {
     margin-top: 25px;
     align-self: flex-end;
+    justify-content: flex-end;
 }
 
 #content {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     overflow: scroll;
     /* border: 1px solid black; */
