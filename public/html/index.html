@@ -107,7 +107,9 @@
         // console.log(data,'speech')
 
         createMsgElement(data.name,data.timestamp,data.message, data.confidence, data.socketid, data.msgid,data.canceled);
-        createChatBubble(data.message,data.socketid)
+        if (!data.canceled) {
+            createChatBubble(data.message,data.socketid,data.msgid)
+        }
     })
 
     let currentElement = window.currentSpeech
@@ -180,7 +182,7 @@
 		if (final_transcript && Math.floor(confidence * 10000) / 100 >= 80) {
 		let msg_id = window.userName.value+"_"+guid();
         createMsgElement(window.userName.value,d.getTime(),final_transcript, confidence,socket.id,msg_id,null);
-        createChatBubble(final_transcript, socket.id)
+        createChatBubble(final_transcript, socket.id,msg_id,null)
     	currentElement.textContent = ''
 			socket.emit('message', {
 				room:window.roomName.value,
@@ -305,7 +307,7 @@ function s4() {
     .substring(1);
 }
 
-function createChatBubble(msg, id) {
+function createChatBubble(msg, id,msgid) {
     let colour = document.getElementById(id).querySelector('.avatar').style.background
     let container = document.createElement('div')
     container.style.background = colour
@@ -316,10 +318,13 @@ function createChatBubble(msg, id) {
     container.classList.add('speech-bubble')
     document.getElementById(id).appendChild(container)
     document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'center' })
+    container.setAttribute("msgid",msgid);
+
 
     setTimeout(() => {
         container.remove()
     }, 10000)
+
 }
 
 
@@ -461,6 +466,11 @@ socket.on('cancelmsg', (data) => {
 	if(msg != null){
 		msg.classList.add("canceledMsg");
 	}
+
+    var speechBubble = document.querySelector("[msgid='"+data+"']");
+    if(speechBubble != null){
+        speechBubble.remove();
+    }
 });
 
 
