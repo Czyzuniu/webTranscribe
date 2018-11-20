@@ -93,7 +93,7 @@ io.on( "connection", function( socket )
             }else{
                 roomData["msgs"].forEach(function(msg) {
                   if( data.usersocket != msg.usersocket){
-                    if( ((data.timestamp - msg.timestamp) /1000) <= 30){
+                    if( ((data.timestamp - msg.timestamp) /1000) <= 10){
                         var similarity = stringSimilarity.compareTwoStrings(data.message, msg.message);
                         // var temp_natural = natural.LevenshteinDistance(msg.message, data.message, {search: true})
                         data["similarity"].push(
@@ -112,11 +112,12 @@ io.on( "connection", function( socket )
                         console.log("data: " + data.message +"  &  msg: "+msg.message + "  = " +similarity);
 
                         if(users != null && users.length >= 1){
-                          if(similarity >= 0.80 && msg_micVolMax > data_micVolMax){
+                          if(similarity >= 0.70 && msg.confidence >= data.confidence && msg_micVolMax > data_micVolMax){
                                 users.map((user) => {
                                   io.sockets.to(user.socketid).emit('cancelmsg', data["msgid"]);
                                 });
-                            }else if(similarity >= 0.80 && data_micVolMax > msg_micVolMax){
+                                data["canceled"] = true;
+                            }else if(similarity >= 0.70 && data.confidence >= msg.confidence && data_micVolMax > msg_micVolMax){
                               users.map((user) => {
                                 io.sockets.to(user.socketid).emit('cancelmsg', msg["msgid"]);
                               })
@@ -124,7 +125,7 @@ io.on( "connection", function( socket )
                           }
 
                     }else {
-                      console.log("false - more than 30 sec");
+                      console.log("false - more than 10 sec");
                     }
                   }else{
                     console.log("false - data and msg are same user ");
